@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', App\Http\Livewire\Dashboard\Pages\IndexPage::class)->name('dashboard.index');
 
 Route::get('/users', App\Http\Livewire\User\Pages\IndexPage::class);
 
@@ -41,7 +42,7 @@ Route::prefix('/shippers')->group(function() {
 
 Route::prefix('/receiving')->group(function() {
     Route::get('/', App\Http\Livewire\Receiving\Pages\IndexPage::class)->name('receiving.index');
-    Route::get('{id}/detail', App\Http\Livewire\Receiving\Pages\AddReceivingPage::class)->name('receiving.detail');
+    Route::get('{id}/detail', App\Http\Livewire\Receiving\Pages\DetailReceivingPage::class)->name('receiving.detail');
     Route::get('/add', App\Http\Livewire\Receiving\Pages\AddReceivingPage::class)->name('receiving.add');
     Route::get('{id}/edit', App\Http\Livewire\Receiving\Pages\EditReceivingPage::class)->name('receiving.edit');
 });
@@ -62,4 +63,8 @@ Route::prefix('/transaction-categories')->group(function() {
     Route::get('/', App\Http\Livewire\TransactionCategory\Pages\IndexPage::class)->name('transaction-category.index');
     Route::get('/add', App\Http\Livewire\TransactionCategory\Pages\AddTransactionCategory::class)->name('transaction-category.add');
     // Route::get('{id}/edit', App\Http\Livewire\Dispatching\Pages\EditDispatchingPage::class)->name('dispatching.edit');
+});
+
+Route::prefix('/print-pdf')->group(function () {
+   Route::get('/receiving-detail/{id}', 'App\Http\Controllers\PrintPDFController@receivingDetail')->name('print-pdf.receiving-detail');
 });

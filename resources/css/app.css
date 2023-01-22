@@ -6,3 +6,7 @@ html {
 @tailwind components;
 @tailwind utilities;
 
+input, select, textarea {
+    color: rgb(75 85 99)
+}
+

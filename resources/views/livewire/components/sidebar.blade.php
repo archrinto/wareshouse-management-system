@@ -1,18 +1,31 @@
-<div class="w-64 min-h-screen bg-slate-800">
+<div class="w-64 min-h-screen bg-slate-800" >
     <!-- Logo -->
-    <div class="w-full h-16 bg-slate-900">
-        Logo
+    <div class="w-full h-16 bg-slate-900 flex justify-between items-center pl-4 pr-2 sticky top-0 left-0">
+        <span class="">Logo</span>
+        <button
+            x-show="!isAboveBreakpoint"
+            type="button"
+            class="p-2"
+            @click.prevent="handleToggle()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
     </div>
 
     <!-- Menus -->
     <div class="p-3 text-slate-300">
-        <a href="/" class="flex items-center gap-3 p-3 rounded-md mb-1">
+        <a
+            href="/"
+            class="{{(request()->is('dashboard') || request()->is('/')) ? ' bg-slate-900 text-white ' : '' }} flex items-center gap-3 p-3 rounded-md mb-1"
+        >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
             </svg>
             <span>Dashboard</span>
         </a>
-        <a 
+        <a
             href="/goods"
             class="{{(request()->is('goods/*') || request()->is('goods')) ? ' bg-slate-900 text-white ' : '' }} flex items-center gap-3 p-3 rounded-md mb-1 hover:bg-slate-900"
         >
@@ -22,8 +35,8 @@
             </svg>
             <span>Goods</span>
         </a>
-        <a 
-            href="/receiving" 
+        <a
+            href="/receiving"
             class="{{(request()->is('receiving*')) ? ' bg-slate-900 text-white ' : '' }} flex items-center gap-3 p-3 rounded-md mb-1 hover:bg-slate-900"
         >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -31,7 +44,7 @@
             </svg>
             <span>Receiving</span>
         </a>
-        <a 
+        <a
             href="/dispatching"
             class="{{(request()->is('dispatching*')) ? ' bg-slate-900 text-white ' : '' }} flex items-center gap-3 p-3 rounded-md mb-1 hover:bg-slate-900"
         >
@@ -40,7 +53,7 @@
             </svg>
             <span>Dispatching</span>
         </a>
-        <a 
+        <a
             href="/stock-opname"
             class="{{(request()->is('stock-opname*')) ? ' bg-slate-900 text-white ' : '' }} flex items-center gap-3 p-3 rounded-md mb-1 hover:bg-slate-900"
         >

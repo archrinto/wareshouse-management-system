@@ -28,4 +28,20 @@ class Goods extends Model
     public function getCodeNameAttribute() {
         return $this->code . ' ' . $this->name;
     }
+
+    public function scopeAvailableStock($query) {
+        return $query
+            ->whereRaw('stock > 0')
+            ->whereRaw('stock >= (minimum_stock * 2)');
+    }
+
+    public function scopeLowStock($query) {
+        return $query
+            ->whereRaw('stock > 0')
+            ->whereRaw('stock < (minimum_stock * 2)');
+    }
+
+    public function scopeOutOfStock($query) {
+        return $query->whereRaw('stock <= minimum_stock');
+    }
 }

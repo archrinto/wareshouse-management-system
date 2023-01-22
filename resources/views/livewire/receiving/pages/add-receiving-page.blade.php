@@ -25,7 +25,7 @@
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <x-select-search
                                     :data="$supplierOptions"
-                                    wire:model="supplierId" 
+                                    wire:model.defer="supplierId"
                                     placeholder="-- Select Supplier --"
                                 />
                             </div>
@@ -35,7 +35,7 @@
                                 Receive Date
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <x-date-picker wire:model="receiveAt" dateFormat="YYYY-MM-DD"  />
+                                <x-date-picker wire:model.defer="receiveAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                         </div>
                     </div>
@@ -54,12 +54,12 @@
                         </div>
                         <div>
                             @foreach($goodsItems as $index => $item)
-                                <div class="grid grid-cols-2 gap-4">
+                                <div class="grid grid-cols-2 gap-4" wire:key="$index">
                                     <div class="mb-3">
                                         <div class="flex rounded-md shadow-sm">
                                             <x-select-search
                                                 :data="$goodsOptions"
-                                                wire:model="goodsItems.{{ $index }}.goodsId"
+                                                wire:model.defer="goodsItems.{{ $index }}.goodsId"
                                                 placeholder="-- Select Goods --"
                                             />
                                         </div>
@@ -68,7 +68,7 @@
                                         <div class="flex items-center">
                                             <div class="flex rounded-md shadow-sm flex-grow">
                                                 <input
-                                                    wire:model.lazy="goodsItems.{{ $index }}.quantity"
+                                                    wire:model.defer="goodsItems.{{ $index }}.quantity"
                                                     type="number"
                                                     name="company-website"
                                                     class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
