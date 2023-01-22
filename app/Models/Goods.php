@@ -31,14 +31,12 @@ class Goods extends Model
 
     public function scopeAvailableStock($query) {
         return $query
-            ->whereRaw('stock > 0')
-            ->whereRaw('stock >= (minimum_stock * 2)');
+            ->whereRaw('stock > 0 AND stock >= (minimum_stock * 2)');
     }
 
     public function scopeLowStock($query) {
         return $query
-            ->whereRaw('stock > 0')
-            ->whereRaw('stock < (minimum_stock * 2)');
+            ->whereRaw('stock > 0 AND stock < (minimum_stock * 2) AND stock > minimum_stock');
     }
 
     public function scopeOutOfStock($query) {

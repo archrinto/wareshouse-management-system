@@ -40,6 +40,10 @@ class GoodsTransaction extends Model
         return $this->belongsTo(GoodsTransactionCategory::class, 'category_id', 'id');
     }
 
+    public function getTransactionAtFormattedAttribute() {
+        return gmdate("Y-m-d", $this->transaction_at);
+    }
+
     public function scopeDispatching($query) {
         return $query->whereHas('category', function($query) {
             $query->where('is_dispatching', true);

@@ -34,10 +34,10 @@
                                 <label for="company-website" class="block text-sm font-medium text-gray-700 mb-2">
                                     Operation
                                 </label>
-                                <div class="flex rounded-md shadow-sm gap-4">
+                                <div class="flex rounded-md gap-4">
                                     @foreach($operationOptions as $opt)
                                         <div class="flex items-center">
-                                            <input 
+                                            <input
                                                 {{ $operation == $opt['value'] ? 'checked' : '' }}
                                                 id="operation-{{ $opt['value'] }}"
                                                 type="radio"

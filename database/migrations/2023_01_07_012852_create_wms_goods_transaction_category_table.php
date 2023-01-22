@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('wms_goods_transaction_category', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 40);
-            $table->string('operation', 20)->nullable()->comment('substraction or addition');
+            $table->string('operation', 20)->nullable()->comment('subtraction, addition, or change');
             $table->string('description', 150)->nullable();
             $table->boolean('is_receiving')->default(false);
             $table->boolean('is_dispatching')->default(false);

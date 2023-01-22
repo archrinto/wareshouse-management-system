@@ -51,7 +51,6 @@ class AddDispatchingPage extends Component
     public function submit() {
         $categoryId = GoodsTransactionCategory::dispatching()->pluck('id')->first();
         $transaction = GoodsTransaction::create([
-            'type' => GoodsTransaction::$diffenceType,
             'category_id' => $categoryId,
             'shipper_id' => $this->shipperId,
             'transaction_at' => strtotime($this->dispatchAt),
@@ -69,7 +68,7 @@ class AddDispatchingPage extends Component
 
             event(new GoodsTransactionCreated($transaction));
 
-            return redirect()->to(route('dispatching.index'));
+            return redirect()->to(route('dispatching.detail', $transaction->id));
         }
     }
 

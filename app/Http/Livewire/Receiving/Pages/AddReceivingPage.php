@@ -51,7 +51,6 @@ class AddReceivingPage extends Component
     public function submit() {
         $categoryId = GoodsTransactionCategory::receiving()->pluck('id')->first();
         $transaction = GoodsTransaction::create([
-            'type' => GoodsTransaction::$diffenceType,
             'category_id' => $categoryId,
             'supplier_id' => $this->supplierId,
             'transaction_at' => strtotime($this->receiveAt),
@@ -67,9 +66,15 @@ class AddReceivingPage extends Component
                 ]);
             }
 
+
             event(new GoodsTransactionCreated($transaction));
 
-            return redirect()->to(route('receiving.index'));
+            $this->dispatchBrowserEvent('toast',[
+                'type' => 'success',
+                'message' => __('Receiving added')
+            ]);
+
+            return redirect()->to(route('receiving.detail', $transaction->id));
         }
     }
 

@@ -23,6 +23,7 @@ class GoodsTransactionCategory extends Model
 
     public static $additionOperation = 'addition';
     public static $subtractionOperation = 'subtraction';
+    public static $changeOperation = 'change';
 
     public function scopeReceiving($query) {
         return $query->where('is_receiving', true);

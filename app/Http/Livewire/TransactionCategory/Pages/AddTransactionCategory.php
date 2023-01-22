@@ -21,7 +21,8 @@ class AddTransactionCategory extends Component
         $this->operation = GoodsTransactionCategory::$additionOperation;
         $this->operationOptions = [
             ['value' => GoodsTransactionCategory::$additionOperation, 'text' => __('Addition')],
-            ['value' => GoodsTransactionCategory::$subtractionOperation, 'text' => __('Subtraction')]
+            ['value' => GoodsTransactionCategory::$subtractionOperation, 'text' => __('Subtraction')],
+            ['value' => GoodsTransactionCategory::$changeOperation, 'text' => __('Change')],
         ];
     }
 

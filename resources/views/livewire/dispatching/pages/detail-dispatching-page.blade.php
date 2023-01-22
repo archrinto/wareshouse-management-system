@@ -6,7 +6,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
             </a>
-            <h3 class="text-2xl font-semibold">{{ __('Detail Receiving') }}</h3>
+            <h3 class="text-2xl font-semibold">{{ __('Detail Dispatching') }}</h3>
         </div>
     </div>
 
@@ -14,21 +14,21 @@
         <div class="bg-white rounded-md shadow col-span-2">
             <div class="py-3 px-4">
                 <div class="pb-3 border-b mb-3 text-xs uppercase">
-                    {{ __('Receiving Info') }}
+                    {{ __('Dispatching Info') }}
                 </div>
                 <div class="mb-8">
                     <dl>
                         <div class="mb-4 grid grid-cols-3 gap-4">
                             <dt>
-                                {{ __('Supplier') }}
+                                {{ __('Shipper') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->supplier->name ?? '-' }}
+                                {{ $transaction->shipper->name ?? '-' }}
                             </dd>
                         </div>
                         <div class="my-4 grid grid-cols-3 gap-4">
                             <dt>
-                                {{ __('Receive at') }}
+                                {{ __('Dispatch at') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
                                 {{ $transaction->transaction_at_formatted ?? '-' }}
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="mb-6 pb-3 border-b text-xs uppercase">
-                    {{ __('Receiving Items') }}
+                    {{ __('Dispatching Items') }}
                 </div>
 
                 <div class="mb-8">
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="bg-gray-50 px-4 py-4 mt-4 flex justify-between border-t rounded-b-md">
-                <a href="{{ route('receiving.index') }}"
+                <a href="{{ route('dispatching.index') }}"
                    class="inline-flex justify-center rounded-md bg-white py-2 px-4 text-sm font-medium border border-gray-300 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     {{ __('Back') }}
                 </a>

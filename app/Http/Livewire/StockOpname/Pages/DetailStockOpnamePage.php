@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Receiving\Pages;
+namespace App\Http\Livewire\StockOpname\Pages;
 
 use App\Models\GoodsTransaction;
 use App\Services\PrintService;
 use Livewire\Component;
 
-class DetailReceivingPage extends Component
+class DetailStockOpnamePage extends Component
 {
     public $transactionId;
     public $transaction;
@@ -21,13 +21,8 @@ class DetailReceivingPage extends Component
     }
 
     public function printPDF() {
-        $pdfContent = PrintService::printReceivingDetail($this->transaction)->output();
-        $filename = __('receiving') . '-' . gmdate("Ymd", $this->transaction->transaction_at) . '.pdf';
-
-        $this->dispatchBrowserEvent('toast',[
-            'type' => 'success',
-            'message' => __('PDF is ready')
-        ]);
+        $pdfContent = PrintService::printStockOpnameDetail($this->transaction)->output();
+        $filename = __('stock-opname') . '-' . gmdate("Ymd", $this->transaction->transaction_at) . '.pdf';
 
         return response()->streamDownload(
             fn () => print($pdfContent),
@@ -37,6 +32,6 @@ class DetailReceivingPage extends Component
 
     public function render()
     {
-        return view('livewire.receiving.pages.detail-receiving-page');
+        return view('livewire.stock-opname.pages.detail-stock-opname-page');
     }
 }

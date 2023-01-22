@@ -9,9 +9,10 @@
 <header>
     <div class="text-left">
         <h5>{{ $companyName ?? '['. __('Company Name') .']' }}</h5>
-        <h3>{{ __('Goods Receiving') }}</h3>
-        <p>{{ $transaction->transaction_at_formatted ??  '['. __('Receiving Date') .']' }}</p>
-        <h6>{{ $transaction->supplier->name ?? '['. __('Supplier Name') .']' }}</h6>
+        <h3>{{ __('Stock Opname') }}</h3>
+        <p>{{ $transaction->transaction_at_formatted ??  '['. __('Stock Opname Date') .']' }}</p>
+        <h6>{{ $transaction->category->name ?? '['. __('Category Name') .']' }} - {{ __($transaction->category->operation) ?? '['. __('operation') .']' }}</h6>
+        <p>{{ $transaction->description ?? '['. __('Description') .']' }}</p>
     </div>
 </header>
 

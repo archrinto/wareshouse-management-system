@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AddStockOpnamePage extends Component
-{   
+{
     public $type;
     public $categoryId;
     public $stockOpnameAt = '';
@@ -28,7 +28,6 @@ class AddStockOpnamePage extends Component
     public function mount() {
         $this->loadGoodsOptions();
         $this->loadCategoryOptions();
-        $this->loadTypeOptions();
         $this->addItem();
     }
 
@@ -40,19 +39,11 @@ class AddStockOpnamePage extends Component
         $this->goodsOptions = Goods::get()->pluck('code_name', 'id');
     }
 
-    public function loadTypeOptions() {
-        $this->type = GoodsTransaction::$diffenceType;
-        $this->typeOptions = [
-            [ 'value' => GoodsTransaction::$diffenceType, 'text' => __('Stock Difference')],
-            [ 'value' => GoodsTransaction::$totalType, 'text' => __('Stock Total')]
-        ];
-    }
-
     public function addItem() {
-        array_push($this->goodsItems, [
+        $this->goodsItems[] = [
             "goodsId" => null,
             "quantity" => null,
-        ]);
+        ];
     }
 
     public function deleteItem($index) {
@@ -61,7 +52,6 @@ class AddStockOpnamePage extends Component
 
     public function submit() {
         $transaction = GoodsTransaction::create([
-            'type' => $this->type,
             'category_id' => $this->categoryId,
             'transaction_at' => strtotime($this->stockOpnameAt),
             'description' => $this->description,
@@ -78,7 +68,7 @@ class AddStockOpnamePage extends Component
 
             event(new GoodsTransactionCreated($transaction));
 
-            return redirect()->to(route('dispatching.index'));
+            return redirect()->to(route('dispatching.detail', $transaction->id));
         }
     }
 

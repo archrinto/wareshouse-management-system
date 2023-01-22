@@ -19,36 +19,13 @@
                     </div>
                     <div>
                         <div class="mb-3">
-                            <label class="block mb-1 text-sm font-medium text-gray-700">
-                                Type
-                            </label>
-                            <div class="grid gap-6 md:grid-cols-2">
-                                @foreach($typeOptions as $opt)
-                                    <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-                                        <input
-                                            {{ $type == $opt['value'] ? 'checked' : '' }}
-                                            id="type-{{ $opt['value'] }}"
-                                            type="radio"
-                                            value="{{ $opt['value'] }}"
-                                            name="bordered-radio"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        >
-                                        <label
-                                            for="type-{{ $opt['value'] }}"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >{{ $opt['text'] }}</label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="mb-3">
                             <label class="block text-sm font-medium text-gray-700">
                                 Category
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <x-select-search
                                     :data="$categoryOptions"
-                                    wire:model.defer="categoryId" 
+                                    wire:model.defer="categoryId"
                                     placeholder="-- Select category --"
                                 />
                             </div>

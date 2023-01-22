@@ -19,7 +19,7 @@ class StockOpnameTable extends DataTableComponent
         $this->setColumnSelectStatus(false);
         $this->setConfigurableAreas([
             'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
+                'livewire.livewire-datatable.add-action-button',
                 [
                     'route' => route('stock-opname.add')
                 ],
@@ -69,6 +69,6 @@ class StockOpnameTable extends DataTableComponent
     }
 
     public function actionView($id) {
-        return redirect()->to(route('dispatching.detail', $id));
+        return redirect()->to(route('stock-opname.detail', $id));
     }
 }

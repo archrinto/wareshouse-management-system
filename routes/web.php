@@ -50,12 +50,14 @@ Route::prefix('/receiving')->group(function() {
 Route::prefix('/dispatching')->group(function() {
     Route::get('/', App\Http\Livewire\Dispatching\Pages\IndexPage::class)->name('dispatching.index');
     Route::get('/add', App\Http\Livewire\Dispatching\Pages\AddDispatchingPage::class)->name('dispatching.add');
+    Route::get('/{id}/detail', App\Http\Livewire\Dispatching\Pages\DetailDispatchingPage::class)->name('dispatching.detail');
     Route::get('{id}/edit', App\Http\Livewire\Dispatching\Pages\EditDispatchingPage::class)->name('dispatching.edit');
 });
 
 Route::prefix('/stock-opname')->group(function() {
     Route::get('/', App\Http\Livewire\StockOpname\Pages\IndexPage::class)->name('stock-opname.index');
     Route::get('/add', App\Http\Livewire\StockOpname\Pages\AddStockOpnamePage::class)->name('stock-opname.add');
+    Route::get('/{id}/detail', App\Http\Livewire\StockOpname\Pages\DetailStockOpnamePage::class)->name('stock-opname.detail');
     // Route::get('{id}/edit', App\Http\Livewire\Dispatching\Pages\EditDispatchingPage::class)->name('dispatching.edit');
 });
 
@@ -65,6 +67,8 @@ Route::prefix('/transaction-categories')->group(function() {
     // Route::get('{id}/edit', App\Http\Livewire\Dispatching\Pages\EditDispatchingPage::class)->name('dispatching.edit');
 });
 
-Route::prefix('/print-pdf')->group(function () {
-   Route::get('/receiving-detail/{id}', 'App\Http\Controllers\PrintPDFController@receivingDetail')->name('print-pdf.receiving-detail');
+Route::prefix('/print-pdf')->controller(\App\Http\Controllers\PrintPDFController::class)->group(function () {
+    Route::get('/receiving-detail/{id}', 'receivingDetail')->name('print-pdf.receiving-detail');
+    Route::get('/dispatching-detail/{id}', 'dispatchingDetail')->name('print-pdf.dispatching-detail');
+    Route::get('/stock-opname-detail/{id}', 'stockOpnameDetail')->name('print-pdf.stock-opname-detail');
 });

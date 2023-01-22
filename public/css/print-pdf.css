@@ -35,6 +35,14 @@ footer p {
     text-align: center;
 }
 
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
 footer p {
     font-size: 14px;
 }

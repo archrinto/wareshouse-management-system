@@ -3,18 +3,41 @@
 namespace App\Services;
 
 use App\Models\GoodsTransaction;
+use Illuminate\Support\Facades\Auth;
 use PDF;
+
 class PrintService {
 
     public static function printReceivingDetail(GoodsTransaction $transaction) {
-        $companyName = config('name');
+        $companyName = config('app.name');
 
-        return PDF::loadView('prints.receiving-detail-pdf', [
+        return PDF::loadView('prints.dispatching-detail-pdf', [
             'companyName' => $companyName,
-            'receivingDate' => gmdate("Y/m/d", $transaction->transaction_at),
-            'items' => $transaction->items,
-            'createdAt' => $transaction->created_at,
+            'transaction' => $transaction,
             'printedAt' => now(),
+            'printedBy' => Auth::user(),
+        ]);
+    }
+
+    public static function printDispatchingDetail(GoodsTransaction $transaction) {
+        $companyName = config('app.name');
+
+        return PDF::loadView('prints.dispatching-detail-pdf', [
+            'companyName' => $companyName,
+            'transaction' => $transaction,
+            'printedAt' => now(),
+            'printedBy' => Auth::user(),
+        ]);
+    }
+
+    public static function printStockOpnameDetail(GoodsTransaction $transaction) {
+        $companyName = config('app.name');
+
+        return PDF::loadView('prints.stock-opname-detail-pdf', [
+            'companyName' => $companyName,
+            'transaction' => $transaction,
+            'printedAt' => now(),
+            'printedBy' => Auth::user(),
         ]);
     }
 }

@@ -6,7 +6,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
             </a>
-            <h3 class="text-2xl font-semibold">{{ __('Detail Receiving') }}</h3>
+            <h3 class="text-2xl font-semibold">{{ __('Stock Opname Detail') }}</h3>
         </div>
     </div>
 
@@ -20,10 +20,18 @@
                     <dl>
                         <div class="mb-4 grid grid-cols-3 gap-4">
                             <dt>
-                                {{ __('Supplier') }}
+                                {{ __('Category') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->supplier->name ?? '-' }}
+                                {{ $transaction->category->name ?? '-' }}
+                            </dd>
+                        </div>
+                        <div class="mb-4 grid grid-cols-3 gap-4">
+                            <dt>
+                                {{ __('Operation') }}
+                            </dt>
+                            <dd class="text-gray-900 col-span-2 mt-0">
+                                {{ __($transaction->category->operation) ?? '-' }}
                             </dd>
                         </div>
                         <div class="my-4 grid grid-cols-3 gap-4">
@@ -63,9 +71,9 @@
                     </div>
                     <div class="grid grid-cols-4 gap-4">
                         @foreach($transaction->items as $item)
-                            <div class="col-span-2">{{ $item->goods->codeName }}</div>
-                            <div>{{ $item->quantity }}</div>
-                            <div>{{ $item->goods->unit->name ?? '-' }}</div>
+                            <div class="col-span-2 text-gray-900">{{ $item->goods->codeName }}</div>
+                            <div class="text-gray-900">{{ $item->quantity }}</div>
+                            <div class="text-gray-900">{{ $item->goods->unit->name ?? '-' }}</div>
                         @endforeach
                     </div>
                 </div>

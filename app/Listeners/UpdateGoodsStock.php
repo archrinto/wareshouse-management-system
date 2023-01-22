@@ -29,23 +29,20 @@ class UpdateGoodsStock
     public function handle(GoodsTransactionCreated $event)
     {
         $goodsTransaction = $event->goodsTransaction;
-        $transactionType = $goodsTransaction->type;
         $operation = $goodsTransaction->category->operation;
         $items = $goodsTransaction->items;
 
         foreach($items as $item) {
             $goods = $item->goods;
 
-            if ($transactionType == GoodsTransaction::$diffenceType) {
-                if ($operation == GoodsTransactionCategory::$additionOperation) {
-                    $newStock = $goods->stock + $item->quantity;
-                } else if ($operation == GoodsTransactionCategory::$subtractionOperation) {
-                    $newStock = $goods->stock - $item->quantity;
-                }
-            } else if ($transactionType == GoodsTransaction::$totalType) {
+            if ($operation == GoodsTransactionCategory::$additionOperation) {
+                $newStock = $goods->stock + $item->quantity;
+            } else if ($operation == GoodsTransactionCategory::$subtractionOperation) {
+                $newStock = $goods->stock - $item->quantity;
+            } else if ($operation == GoodsTransactionCategory::$changeOperation) {
                 $newStock = $item->quantity;
             }
-            
+
             $item->goods->update([
                 'stock' => $newStock,
             ]);
