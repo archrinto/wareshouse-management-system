@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', App\Http\Livewire\Dashboard\Pages\IndexPage::class)->name('dashboard.index');
 
-Route::get('/users', App\Http\Livewire\User\Pages\IndexPage::class);
+Route::prefix('/users')->group(function() {
+    Route::get('/', App\Http\Livewire\User\Pages\UserIndexPage::class)->name('user.index');
+    Route::get('/add', App\Http\Livewire\User\Pages\UserAddPage::class)->name('user.add');
+});
 
 Route::prefix('/goods')->group(function() {
     Route::get('/', App\Http\Livewire\Goods\Pages\IndexPage::class)->name('goods.index');

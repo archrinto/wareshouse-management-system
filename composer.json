@@ -12,10 +12,12 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
+        "laravelcollective/html": "^6.3",
         "livewire/livewire": "^2.10",
         "psr/simple-cache": "^1.0",
         "ramsey/uuid": "^4.7",
-        "rappasoft/laravel-livewire-tables": "^2.9"
+        "rappasoft/laravel-livewire-tables": "^2.9",
+        "spatie/laravel-permission": "^5.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
