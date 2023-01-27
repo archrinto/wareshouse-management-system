@@ -47,15 +47,30 @@
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
-                                    Goods Unit
+                                    {{ __('Unit') }}
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <select wire:model.defer="unitId" class="rounded-md border-gray-300 text-sm">
-                                        <option>-- Select Unit --</option>
+                                        <option>-- {{ __('Select unit') }} --</option>
                                         @foreach($units as $unit)
                                             <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->symbol }})</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="col-span-3 sm:col-span-2">
+                                <label for="company-website" class="block text-sm font-medium text-gray-700">
+                                    {{ __('Price') }}
+                                </label>
+                                <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input
+                                        wire:model.dafer="price"
+                                        type="number"
+                                        class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="{{ __('Price') }}"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -76,7 +91,7 @@
                         </div>
                         <div>
                             <label for="about" class="block text-sm font-medium text-gray-700">
-                                Description
+                                {{ __('Description') }}
                             </label>
                             <div class="mt-1">
                                 <textarea
@@ -91,10 +106,10 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-4 flex justify-between sm:px-6 border-t">
                         <a href="{{ route('goods.index') }}" class="inline-flex justify-center rounded-md bg-white py-2 px-4 text-sm font-medium border border-gray-300 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Cancel
+                            {{ __('Cancel') }}
                         </a>
                         <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-slate-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Save
+                            {{ __('Save') }}
                         </button>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ use App\Models\Goods;
 use App\Models\GoodsTransaction;
 use App\Models\GoodsTransactionGoods;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
@@ -17,14 +18,16 @@ class DispatchingTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-        $this->setConfigurableAreas([
-            'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
-                [
-                    'route' => route('dispatching.add')
+        if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
+            $this->setConfigurableAreas([
+                'toolbar-left-start' => [
+                    'livewire.livewire-datatable.add-action-button',
+                    [
+                        'route' => route('dispatching.add')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public function builder(): Builder
@@ -53,7 +56,7 @@ class DispatchingTable extends DataTableComponent
             Column::make('Created At', 'created_at')
                 ->sortable(),
             Column::make(__('Actions'), 'id')
-                ->view('livewire.components.datatable-row-actions')
+                ->view('livewire.dispatching.components.dispatching-action-menu')
         ];
     }
 

@@ -14,6 +14,8 @@ class EditGoodsPage extends Component
     public $categoryId;
     public $unitId;
     public $description;
+    public $stockLimit;
+    public $price;
 
     public $goodsId;
 
@@ -24,7 +26,7 @@ class EditGoodsPage extends Component
     public function mount($id) {
         $this->goodsId = $id;
         $this->loadGoods();
-        $this->loadCategories();
+        // $this->loadCategories();
         $this->loadUnits();
     }
 
@@ -36,6 +38,8 @@ class EditGoodsPage extends Component
             $this->categoryId = $this->goods->category_id;
             $this->description = $this->goods->description;
             $this->name = $this->goods->name;
+            $this->price = $this->goods->price;
+            $this->stockLimit = $this->goods->minimum_stock;
             $this->code = $this->goods->code;
 
             return;
@@ -56,6 +60,8 @@ class EditGoodsPage extends Component
             'name' => $this->name,
             'code' => $this->code,
             'category_id' => $this->categoryId,
+            'minimum_stock' => $this->stockLimit,
+            'price' => $this->price,
             'unit_id' => $this->unitId,
             'description' => $this->description,
         ]);

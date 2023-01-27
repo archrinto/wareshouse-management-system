@@ -15,6 +15,7 @@ class AddGoodsPage extends Component
     public $stockLimit;
     public $unitId;
     public $description;
+    public $price;
 
     public $categories;
     public $units;
@@ -32,6 +33,7 @@ class AddGoodsPage extends Component
             'name' => $this->name,
             'code' => $this->code,
             'minimum_stock' => $this->stockLimit,
+            'price' => $this->price,
             'unit_id' => $this->unitId,
             'description' => $this->description,
         ]);

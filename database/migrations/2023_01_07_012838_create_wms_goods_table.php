@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('code', 25)->nullable()->comment('or sku');
             $table->string('description', 200)->nullable();
             $table->integer('minimum_stock')->default(0);
+            $table->integer('price')->default(0);
             $table->integer('stock')->default(0);
             $table->foreignUuid('unit_id')->nullable();
             $table->foreignUuid('created_by')->nullable();

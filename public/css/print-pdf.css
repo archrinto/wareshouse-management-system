@@ -84,3 +84,7 @@ h3 { font-size: 30px }
 h4 { font-size: 24px }
 h5 { font-size: 20px }
 h6 { font-size: 18px }
+
+.bg-gray-100 {
+    background-color: rgb(243 244 246);
+}

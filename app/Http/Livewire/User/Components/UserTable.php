@@ -30,9 +30,12 @@ class UserTable extends DataTableComponent
             Column::make('Name')
                 ->sortable(),
             Column::make('Email', 'email'),
-            Column::make('Role', ''),
             Column::make('Created at', 'created_at')
                 ->sortable(),
+            Column::make(__('Roles'))
+                ->label(
+                    fn($row, $column) => join(', ', $row->roles->pluck('name')->toArray())
+                ),
             Column::make('Actions', 'id')
                 ->view('livewire.shipper.components.shipper-action-menu'),
         ];

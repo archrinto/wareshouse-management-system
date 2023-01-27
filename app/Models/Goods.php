@@ -16,6 +16,7 @@ class Goods extends Model
         'description',
         'unit_id',
         'minimum_stock',
+        'price',
         'stock',
         'created_at',
         'updated_at'

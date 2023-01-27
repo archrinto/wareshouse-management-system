@@ -5,25 +5,30 @@ namespace App\Http\Livewire\Receiving\Components;
 use App\Models\GoodsTransaction;
 use App\Models\GoodsTransactionGoods;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class ReceivingTable extends DataTableComponent
 {
     protected $model = GoodsTransaction::class;
+    protected $actions = ['view', 'update', 'delete'];
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-        $this->setConfigurableAreas([
-            'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
-                [
-                    'route' => route('receiving.add')
+
+        if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
+            $this->setConfigurableAreas([
+                'toolbar-left-start' => [
+                    'livewire.livewire-datatable.add-action-button',
+                    [
+                        'route' => route('receiving.add')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public function builder(): Builder
@@ -52,7 +57,7 @@ class ReceivingTable extends DataTableComponent
             Column::make('Created At', 'created_at')
                 ->sortable(),
             Column::make(__('Actions'), 'id')
-                ->view('livewire.components.datatable-row-actions')
+                ->view('livewire.receiving.components.receiving-action-menu')
         ];
     }
 
