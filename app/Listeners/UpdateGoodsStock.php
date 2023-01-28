@@ -34,6 +34,7 @@ class UpdateGoodsStock
 
         foreach($items as $item) {
             $goods = $item->goods;
+            $newStock = $goods->stock;
 
             if ($operation == GoodsTransactionCategory::$additionOperation) {
                 $newStock = $goods->stock + $item->quantity;
@@ -43,7 +44,11 @@ class UpdateGoodsStock
                 $newStock = $item->quantity;
             }
 
-            $item->goods->update([
+            $item->update([
+                'quantity_before' => $goods->stock
+            ]);
+
+            $goods->update([
                 'stock' => $newStock,
             ]);
         }

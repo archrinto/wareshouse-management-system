@@ -16,6 +16,7 @@ class GoodsTransactionGoods extends Model
         'transaction_id',
         'goods_id',
         'quantity',
+        'quantity_before'
     ];
 
     public $timestamps = false;

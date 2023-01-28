@@ -1,7 +1,6 @@
 <div class="flex items-center gap-3">
     <a
-        href="#"
-        wire:click.prevent="actionView('{{ $row->id }}')"
+        href="{{ route('goods.detail',  $row->id) }}"
         class="text-slate-800 hover:text-slate-700"
     >
         {{ __('Detail') }}

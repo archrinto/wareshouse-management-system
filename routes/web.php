@@ -37,16 +37,18 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:goods.create');
         Route::get('{id}/edit', App\Http\Livewire\Goods\Pages\EditGoodsPage::class)
             ->name('goods.edit')
-            ->middleware('permission:goods.update');;
+            ->middleware('permission:goods.update');
+        Route::get('{id}/detail', App\Http\Livewire\Goods\Pages\DetailGoodsPage::class)
+            ->name('goods.detail');
     });
 
     Route::prefix('/goods-categories')->group(function() {
-        Route::get('/', App\Http\Livewire\Goods\Pages\CategoryPage::class)
-            ->name('goods.category.index');
-        Route::get('/add', App\Http\Livewire\Goods\Pages\AddCategoryPage::class)
-            ->name('goods.category.add');
-        Route::get('/{id}/edit', App\Http\Livewire\Goods\Pages\EditCategoryPage::class)
-            ->name('goods.category.edit');
+//        Route::get('/', App\Http\Livewire\Goods\Pages\CategoryPage::class)
+//            ->name('goods.category.index');
+//        Route::get('/add', App\Http\Livewire\Goods\Pages\AddCategoryPage::class)
+//            ->name('goods.category.add');
+//        Route::get('/{id}/edit', App\Http\Livewire\Goods\Pages\EditCategoryPage::class)
+//            ->name('goods.category.edit');
     });
 
     Route::prefix('/suppliers')->group(function() {

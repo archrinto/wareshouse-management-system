@@ -17,7 +17,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('transaction_id');
             $table->foreignUuid('goods_id');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
+            $table->integer('quantity_before')->default(0);
         });
     }
 
