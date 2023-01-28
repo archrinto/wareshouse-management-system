@@ -6,7 +6,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
             </a>
-            <h3 class="text-2xl font-semibold">Add Goods</h3>
+            <h3 class="text-2xl font-semibold">{{ __('Add Goods') }}</h3>
         </div>
     </div>
     <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -17,14 +17,14 @@
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
-                                    Code
+                                    {{ __('Code') }}
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
                                         wire:model.defer="code"
                                         type="text"
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Product code"
+                                        placeholder="{{ __('Code') }}"
                                     >
                                 </div>
                             </div>
@@ -32,14 +32,14 @@
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
-                                    Goods Name
+                                    {{ __('Name') }}
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
                                         wire:model.defer="name"
                                         type="text"
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        placeholder="Product name"
+                                        placeholder="{{ __('Name') }}"
                                     >
                                 </div>
                             </div>
@@ -52,10 +52,24 @@
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <select wire:model.defer="unitId" class="rounded-md border-gray-300 text-sm">
                                         <option>-- {{ __('Select unit') }} --</option>
-                                        @foreach($units as $unit)
+                                        @foreach($unitOptions as $unit)
                                             <option value="{{ $unit->id }}">{{ $unit->name }} ({{ $unit->symbol }})</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="col-span-3 sm:col-span-2">
+                                <label for="company-website" class="block text-sm font-medium text-gray-700">
+                                    {{ __('Categories') }}
+                                </label>
+                                <div class="mt-1 flex rounded-md shadow-sm">
+                                   <x-select-search
+                                       wire:model.defer="categoryIds"
+                                       :data="$categoryOptions"
+                                       multiple="true"
+                                   />
                                 </div>
                             </div>
                         </div>

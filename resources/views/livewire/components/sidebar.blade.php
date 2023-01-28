@@ -1,7 +1,7 @@
 <div class="w-64 min-h-screen bg-slate-800" >
     <!-- Logo -->
     <div class="w-full h-16 bg-slate-900 flex justify-between items-center pl-4 pr-2 sticky top-0 left-0">
-        <span class="">Logo</span>
+        <span class="font-semibold text-lg">{{ config('app.name') }}</span>
         <button
             x-show="!isAboveBreakpoint"
             type="button"

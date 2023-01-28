@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Goods\Components;
+namespace App\Http\Livewire\GoodsCategory\Components;
 
 use App\Models\Goods;
 use App\Models\GoodsCategory;
@@ -24,9 +24,9 @@ class GoodsCategoryTable extends DataTableComponent
         $this->setColumnSelectStatus(false);
         $this->setConfigurableAreas([
             'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
+                'livewire.livewire-datatable.add-action-button',
                 [
-                    'route' => route('goods.category.add')
+                    'route' => route('goods-category.add')
                 ],
             ],
         ]);
@@ -38,7 +38,7 @@ class GoodsCategoryTable extends DataTableComponent
             Column::make('Name')
                 ->sortable(),
             Column::make('Actions', 'id')
-                ->view('livewire.goods.components.category-action-menu'),
+                ->view('livewire.goods-category.components.category-action-menu'),
         ];
     }
 }

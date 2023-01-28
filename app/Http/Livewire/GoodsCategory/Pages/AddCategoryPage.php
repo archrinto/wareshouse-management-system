@@ -21,6 +21,6 @@ class AddCategoryPage extends Component
             'description' => $this->description
         ]);
 
-        return redirect()->to(route('goods.category.index'));
+        return redirect()->to(route('goods-category.index'));
     }
 }

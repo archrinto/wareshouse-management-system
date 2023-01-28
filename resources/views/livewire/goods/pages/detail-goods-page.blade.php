@@ -34,6 +34,14 @@
                     </div>
                     <div class="grid grid-cols-3 py-3 border-b">
                         <div>
+                            {{ __('Category') }}
+                        </div>
+                        <div class="col-span-2 font-medium">
+                            {{ implode(', ', $goods->getCategoryNames()) }}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 py-3 border-b">
+                        <div>
                             {{ __('Unit') }}
                         </div>
                         <div class="col-span-2 font-medium">

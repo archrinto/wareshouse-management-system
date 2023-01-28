@@ -43,12 +43,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('/goods-categories')->group(function() {
-//        Route::get('/', App\Http\Livewire\Goods\Pages\CategoryPage::class)
-//            ->name('goods.category.index');
-//        Route::get('/add', App\Http\Livewire\Goods\Pages\AddCategoryPage::class)
-//            ->name('goods.category.add');
-//        Route::get('/{id}/edit', App\Http\Livewire\Goods\Pages\EditCategoryPage::class)
-//            ->name('goods.category.edit');
+        Route::get('/', App\Http\Livewire\GoodsCategory\Pages\CategoryPage::class)
+            ->name('goods-category.index');
+        Route::get('/add', App\Http\Livewire\GoodsCategory\Pages\AddCategoryPage::class)
+            ->name('goods-category.add');
+        Route::get('/{id}/edit', App\Http\Livewire\GoodsCategory\Pages\EditCategoryPage::class)
+            ->name('goods-category.edit');
     });
 
     Route::prefix('/suppliers')->group(function() {

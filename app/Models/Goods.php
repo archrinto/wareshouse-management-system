@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Goods extends Model
 {
@@ -22,11 +25,24 @@ class Goods extends Model
         'updated_at'
     ];
 
-    public function unit() {
+    public function unit() : HasOne {
         return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
 
-    public function getCodeNameAttribute() {
+    public function categories() : BelongsToMany {
+        return $this->belongsToMany(
+            GoodsCategory::class,
+            'wms_goods_categories_goods',
+            'goods_id',
+            'category_id'
+        );
+    }
+
+    public function getCategoryNames() : array {
+        return $this->categories->pluck('name')->toArray();
+    }
+
+    public function getCodeNameAttribute() : string {
         return $this->code . ' ' . $this->name;
     }
 

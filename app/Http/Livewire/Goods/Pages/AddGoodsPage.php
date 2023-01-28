@@ -11,25 +11,30 @@ class AddGoodsPage extends Component
 {
     public $name;
     public $code;
-    public $categoryId;
+    public $categoryIds;
     public $stockLimit;
     public $unitId;
     public $description;
     public $price;
 
-    public $categories;
-    public $units;
+    public $categoryOptions;
+    public $unitOptions;
 
     public function mount() {
-        $this->loadUnits();
+        $this->loadUnitOptions();
+        $this->loadCategoryOptions();
     }
 
-    public function loadUnits() {
-        $this->units = Unit::all(['id', 'name', 'symbol']);
+    public function loadUnitOptions() {
+        $this->unitOptions = Unit::all(['id', 'name', 'symbol']);
+    }
+
+    public function loadCategoryOptions() {
+        $this->categoryOptions = GoodsCategory::all()->pluck('name', 'id');
     }
 
     public function submit() {
-        Goods::create([
+        $goods = Goods::create([
             'name' => $this->name,
             'code' => $this->code,
             'minimum_stock' => $this->stockLimit,
@@ -37,6 +42,9 @@ class AddGoodsPage extends Component
             'unit_id' => $this->unitId,
             'description' => $this->description,
         ]);
+        if ($goods) {
+            $goods->categories()->attach($this->categoryIds);
+        }
         return redirect()->to(route('goods.index'));
     }
 

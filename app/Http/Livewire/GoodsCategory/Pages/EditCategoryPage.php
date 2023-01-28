@@ -20,7 +20,7 @@ class EditCategoryPage extends Component
     public function loadCategory() {
         $this->category = GoodsCategory::find($this->categoryId);
         if (!$this->category) {
-            return redirect()->to('goods.category.index');
+            return redirect()->to('goods-category.index');
         }
 
         $this->name = $this->category->name;
@@ -32,7 +32,7 @@ class EditCategoryPage extends Component
             'name' => $this->name,
             'description' => $this->description,
         ]);
-        return redirect()->to(route('goods.category.index'));
+        return redirect()->to(route('goods-category.index'));
     }
 
     public function render()
