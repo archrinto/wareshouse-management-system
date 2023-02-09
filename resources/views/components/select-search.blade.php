@@ -21,14 +21,13 @@
     @keydown.enter="selectOption(Object.keys(options)[currentIndex])"
     class="w-full"
 >
-
     <div
         class="relative content-center w-full p-1 px-2 text-left bg-white border border-gray-300 rounded-md sm:text-sm sm:leading-5"
         x-bind:class="{'border-blue-300 ring ring-blue-200 ring-opacity-50':open, 'bg-gray-200 cursor-default':disabled}"
         @click.prevent="toggleSelect(); $nextTick(() => $refs.search.focus());"
     >
         <div id="placeholder">
-            <div class="inline-block m-1" x-show="selected.length === 0" x-text="placeholder">&nbsp;</div>
+            <div class="inline-block m-1" x-show="selected?.length === 0" x-text="placeholder">&nbsp;</div>
         </div>
         @isset($attributes['multiple'])
             <div class="flex flex-wrap space-x-1" x-cloak x-show="selected.length > 0">
@@ -54,7 +53,7 @@
         >
 
             <div class="relative z-30 w-full p-2 bg-white">
-                <input 
+                <input
                     type="search"
                     x-model="search"
                     x-on:click.prevent.stop="open=true"
@@ -86,102 +85,3 @@
         </div>
     </div>
 </div>
-
-@once
-    <script>
-        function AlpineSelect(config) {
-            return {
-                data: config.data ?? [],
-                open: false,
-                search: '',
-                options: {},
-                emptyOptionsMessage: 'No results match your search.',
-                placeholder: config.placeholder,
-                selected: config.selected,
-                multiple: config.multiple,
-                currentIndex: 0,
-                isLoading: false,
-                disabled: config.disabled ?? false,
-                limit: config.limit ?? 40,
-                init: function() {
-                    if(this.selected == null ){
-                        if(this.multiple)
-                            this.selected = []
-                        else
-                            this.selected = ''
-                    }
-                    if(!this.data) this.data = {}
-                    this.resetOptions()
-                    this.$watch('search', ((values) => {
-                        if (!this.open || !values) {
-                            this.resetOptions()
-                            return
-                        }
-                        this.options = Object.keys(this.data)
-                            .filter((key) => this.data[key].toLowerCase().includes(values.toLowerCase()))
-                            .slice(0, this.limit)
-                            .reduce((options, key) => {
-                                options[key] = this.data[key]
-                                return options
-                            }, {})
-                        this.currentIndex=0
-                    }))
-                },
-                resetOptions: function() {
-                    this.options = Object.keys(this.data)
-                        .slice(0,this.limit)
-                        .reduce((options, key) => {
-                            options[key] = this.data[key]
-                            return options
-                        }, {})
-                },
-                closeSelect: function() {
-                    this.open = false
-                    this.search = ''
-                },
-                toggleSelect: function() {
-                    if(!this.disabled) {
-                        if (this.open) return this.closeSelect()
-                    this.open = true
-                    }
-                },
-                deselectOption: function(index) {
-                    if(this.multiple) {
-                        this.selected.splice(index, 1)
-                    }
-                    else {
-                        this.selected = ''
-                    }
-                },
-                selectOption: function(value) {
-                    if(!this.disabled) {
-                        // If multiple push to the array, if not, keep that value and close menu
-                        if(this.multiple){
-                            // If it's not already in there
-                            if (!this.selected.includes(value)) {
-                                this.selected.push(value)
-                            }
-                        }
-                        else {
-                            this.selected=value
-                            this.closeSelect()
-                        }
-                    }
-                },
-                increaseIndex: function() {
-                    if(this.currentIndex == Object.keys(this.options).length)
-                        this.currentIndex = 0
-                    else
-                        this.currentIndex++
-                },
-                decreaseIndex: function() {
-                    if(this.currentIndex == 0)
-                        this.currentIndex = Object.keys(this.options).length-1
-                    else
-                        this.currentIndex--;
-                },
-            }
-        }
-    </script>
-    
-@endonce

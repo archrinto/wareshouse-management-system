@@ -22,6 +22,15 @@ class AddReceivingPage extends Component
 
     public $supplierOptions;
     public $goodsOptions;
+    public $validationErrors;
+
+    protected $rules = [
+        'supplierId' => 'required',
+        'receiveAt' => 'required',
+        'description' => 'max:200',
+        'goodsItems.*.goodsId' => 'required',
+        'goodsItems.*.quantity' => 'required|numeric|min:1'
+    ];
 
     public function mount() {
         $this->loadGoodsOptions();
@@ -38,10 +47,10 @@ class AddReceivingPage extends Component
     }
 
     public function addItem() {
-        array_push($this->goodsItems, [
+        $this->goodsItems[] = [
             "goodsId" => null,
             "quantity" => null,
-        ]);
+        ];
     }
 
     public function deleteItem($index) {
@@ -49,6 +58,7 @@ class AddReceivingPage extends Component
     }
 
     public function submit() {
+        $this->validate();
         $categoryId = GoodsTransactionCategory::receiving()->pluck('id')->first();
         $transaction = GoodsTransaction::create([
             'category_id' => $categoryId,
@@ -76,6 +86,17 @@ class AddReceivingPage extends Component
 
             return redirect()->to(route('receiving.detail', $transaction->id));
         }
+    }
+
+    protected function getValidationAttributes()
+    {
+        return [
+            'supplierId' => __('supplier'),
+            'receiveAt' => __('receive At'),
+            'description' => __('description'),
+            'goodsItems.*.goodsId' => __('goods'),
+            'goodsItems.*.quantity' => __('quantity'),
+        ];
     }
 
     public function render()

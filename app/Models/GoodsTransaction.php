@@ -21,9 +21,6 @@ class GoodsTransaction extends Model
         'description',
     ];
 
-    public static $diffenceType = 'difference';
-    public static $totalType = 'total';
-
     public function supplier() {
         return $this->hasOne(Supplier::class, 'id', 'supplier_id');
     }

@@ -10,6 +10,7 @@ use App\Models\GoodsTransaction;
 use App\Models\GoodsTransactionCategory;
 use App\Models\GoodsTransactionGoods;
 use App\Models\Shipper;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -22,33 +23,31 @@ class AddDispatchingPage extends Component
 
     public $shipperOptions;
     public $goodsOptions;
+    public array $validationErrors = [];
+
+    protected $rules = [
+        'shipperId' => 'required',
+        'dispatchAt' => 'required',
+        'description' => 'max:200',
+        'goodsItems.*.goodsId' => 'required',
+        'goodsItems.*.quantity' => 'required|numeric|min:1'
+    ];
 
     public function mount() {
         $this->loadGoodsOptions();
         $this->loadShipperOptions();
-        $this->addItem();
     }
 
     public function loadShipperOptions() {
-        $this->shipperOptions = Shipper::pluck('name', 'id');
+        $this->shipperOptions = Shipper::pluck('name', 'id')->toArray();
     }
 
     public function loadGoodsOptions() {
-        $this->goodsOptions = Goods::get()->pluck('code_name', 'id');
-    }
-
-    public function addItem() {
-        array_push($this->goodsItems, [
-            "goodsId" => null,
-            "quantity" => null,
-        ]);
-    }
-
-    public function deleteItem($index) {
-        unset($this->goodsItems[$index]);
+        $this->goodsOptions = Goods::select('code', 'name', 'id')->get()->toArray();
     }
 
     public function submit() {
+        $this->validate();
         $categoryId = GoodsTransactionCategory::dispatching()->pluck('id')->first();
         $transaction = GoodsTransaction::create([
             'category_id' => $categoryId,
@@ -72,8 +71,18 @@ class AddDispatchingPage extends Component
         }
     }
 
+    public function getValidationAttributes() {
+        return [
+            'shipperId' => __('shipper'),
+            'goodsItems.*.goodsId' => __('goods'),
+            'goodsItems.*.quantity' => __('quantity'),
+            'description' => __('description')
+        ];
+    }
+
     public function render()
     {
+        $this->validationErrors = $this->getErrorBag()->toArray();
         return view('livewire.dispatching.pages.add-dispatching-page');
     }
 }

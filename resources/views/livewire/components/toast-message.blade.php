@@ -33,6 +33,7 @@
     </template>
 </div>
 
+@push('scripts')
 <script>
     function toastMessageData() {
         return {
@@ -55,3 +56,4 @@
         }
     }
 </script>
+@endpush
