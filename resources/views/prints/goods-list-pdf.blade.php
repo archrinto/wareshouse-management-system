@@ -15,7 +15,7 @@
 </header>
 
 <footer>
-    <p>{{ __('Printed by ') }} {{ $printedBy->full_name ?? '['. __('printedBy') .']'}} {{ __('at') }} {{ $printedAt ?? '['. __('printedAt') .']'}}</p>
+    <p>{{ __('Printed by ') }} {{ $printedBy->name ?? '['. __('printedBy') .']'}} {{ __('at') }} {{ $printedAt ?? '['. __('printedAt') .']'}}</p>
     <div class="text-center">
         <div class="page-number"></div>
     </div>

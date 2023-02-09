@@ -13,7 +13,7 @@ class PrintService {
     public static function printReceivingDetail(GoodsTransaction $transaction) {
         $companyName = config('app.name');
 
-        return PDF::loadView('prints.dispatching-detail-pdf', [
+        return PDF::loadView('prints.receiving-detail-pdf', [
             'companyName' => $companyName,
             'transaction' => $transaction,
             'printedAt' => now(),

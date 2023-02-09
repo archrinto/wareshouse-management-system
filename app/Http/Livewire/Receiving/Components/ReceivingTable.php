@@ -18,7 +18,7 @@ class ReceivingTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-
+        $this->setDefaultSort('transaction_at', 'desc');
         if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
             $this->setConfigurableAreas([
                 'toolbar-left-start' => [
@@ -33,7 +33,7 @@ class ReceivingTable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return GoodsTransaction::with('items')
+        return GoodsTransaction::with(['items', 'creator'])
             ->receiving()
             ->withCount('items');
     }
@@ -53,7 +53,7 @@ class ReceivingTable extends DataTableComponent
                     return $row->items_count;
                 }),
             Column::make('Created By', 'created_by')
-                ->sortable(),
+                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
             Column::make('Created At', 'created_at')
                 ->sortable(),
             Column::make(__('Actions'), 'id')
@@ -64,8 +64,6 @@ class ReceivingTable extends DataTableComponent
     public function actionDelete($id) {
         GoodsTransaction::where('id', $id)->delete();
         GoodsTransactionGoods::where('transaction_id', $id)->delete();
-
-        $this->emit('refreshDatatable');
     }
 
     public function actionEdit($id) {

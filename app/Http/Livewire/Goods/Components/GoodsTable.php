@@ -80,6 +80,10 @@ class GoodsTable extends DataTableComponent
         ];
     }
 
+    public function actionDelete($id) {
+        Goods::where('id', $id)->delete();
+    }
+
     public function bulkActions(): array {
         return [
             'exportPDF' => __('Export PDF'),

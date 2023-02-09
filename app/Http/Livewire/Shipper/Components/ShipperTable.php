@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Shipper\Components;
 
 use App\Models\Goods;
+use App\Models\GoodsCategory;
 use App\Models\Shipper;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -19,7 +20,7 @@ class ShipperTable extends DataTableComponent
         $this->setColumnSelectStatus(false);
         $this->setConfigurableAreas([
             'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
+                'livewire.livewire-datatable.add-action-button',
                 [
                     'route' => route('shipper.add')
                 ],
@@ -39,5 +40,9 @@ class ShipperTable extends DataTableComponent
             Column::make('Actions', 'id')
                 ->view('livewire.shipper.components.shipper-action-menu'),
         ];
+    }
+
+    public function actionDelete($id) {
+        Shipper::where('id', $id)->delete();
     }
 }

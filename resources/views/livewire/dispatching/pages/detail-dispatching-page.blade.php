@@ -65,7 +65,7 @@
                         @foreach($transaction->items as $item)
                             <div class="col-span-2">{{ $item->goods->codeName }}</div>
                             <div>{{ $item->quantity }}</div>
-                            <div>{{ $item->goods->unit->name ?? '-' }}</div>
+                            <div>{{ $item->goods->unit->symbol ?? '-' }}</div>
                         @endforeach
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                 {{ __('Created by') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->created_by ?? '-' }}
+                                {{ $transaction->creator->name ?? '-' }}
                             </dd>
                         </div>
                         <div class="mb-4 grid grid-cols-3 gap-4">

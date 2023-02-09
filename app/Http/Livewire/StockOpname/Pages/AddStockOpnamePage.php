@@ -32,11 +32,15 @@ class AddStockOpnamePage extends Component
     }
 
     public function loadCategoryOptions() {
-        $this->categoryOptions = GoodsTransactionCategory::stockOpname()->pluck('name', 'id');
+        $this->categoryOptions = GoodsTransactionCategory::stockOpname()
+            ->pluck('name', 'id')
+            ->toArray();
     }
 
     public function loadGoodsOptions() {
-        $this->goodsOptions = Goods::get()->pluck('code_name', 'id');
+        $this->goodsOptions = Goods::all()
+            ->pluck('code_name', 'id')
+            ->toArray();
     }
 
     public function addItem() {
@@ -55,6 +59,7 @@ class AddStockOpnamePage extends Component
             'category_id' => $this->categoryId,
             'transaction_at' => strtotime($this->stockOpnameAt),
             'description' => $this->description,
+            'created_by' => Auth::id()
         ]);
 
         if ($transaction) {

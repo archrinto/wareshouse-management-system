@@ -12,6 +12,7 @@ use App\Models\GoodsTransactionGoods;
 use App\Models\Shipper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AddDispatchingPage extends Component
@@ -36,6 +37,7 @@ class AddDispatchingPage extends Component
     public function mount() {
         $this->loadGoodsOptions();
         $this->loadShipperOptions();
+        $this->addItem();
     }
 
     public function loadShipperOptions() {
@@ -43,7 +45,9 @@ class AddDispatchingPage extends Component
     }
 
     public function loadGoodsOptions() {
-        $this->goodsOptions = Goods::select('code', 'name', 'id')->get()->toArray();
+        $this->goodsOptions = Goods::all()
+            ->pluck('code_name', 'id')
+            ->toArray();
     }
 
     public function submit() {
@@ -54,6 +58,7 @@ class AddDispatchingPage extends Component
             'shipper_id' => $this->shipperId,
             'transaction_at' => strtotime($this->dispatchAt),
             'description' => $this->description,
+            'created_by' => Auth::id()
         ]);
 
         if ($transaction) {
@@ -78,6 +83,17 @@ class AddDispatchingPage extends Component
             'goodsItems.*.quantity' => __('quantity'),
             'description' => __('description')
         ];
+    }
+
+    public function addItem() {
+        $this->goodsItems[] = [
+            "goodsId" => null,
+            "quantity" => null,
+        ];
+    }
+
+    public function deleteItem($index) {
+        unset($this->goodsItems[$index]);
     }
 
     public function render()

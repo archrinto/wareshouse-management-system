@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\HasCreatorEditor;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Goods extends Model
 {
-    use Uuid;
+    use Uuid, HasCreatorEditor;
 
     protected $table = 'wms_goods';
     protected $fillable = [

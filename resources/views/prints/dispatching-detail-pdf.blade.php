@@ -16,8 +16,8 @@
 </header>
 
 <footer>
-    <p>{{ __('Created by ') }} {{ $transaction->createdBy->full_name ?? '['. __('createdBy') .']'}} {{ __('at') }} {{ $transaction->created_at ?? '['. __('createdAt') .']'}}</p>
-    <p>{{ __('Printed by ') }} {{ $printedBy->full_name ?? '['. __('printedBy') .']'}} {{ __('at') }} {{ $printedAt ?? '['. __('printedAt') .']'}}</p>
+    <p>{{ __('Created by ') }} {{ $transaction->creator->name ?? '['. __('createdBy') .']'}} {{ __('at') }} {{ $transaction->created_at ?? '['. __('createdAt') .']'}}</p>
+    <p>{{ __('Printed by ') }} {{ $printedBy->name ?? '['. __('printedBy') .']'}} {{ __('at') }} {{ $printedAt ?? '['. __('printedAt') .']'}}</p>
     <div class="text-center">
         <div class="page-number"></div>
     </div>

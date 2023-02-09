@@ -89,7 +89,7 @@
                                 {{ __('Created by') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->created_by ?? '-' }}
+                                {{ $transaction->creator->name ?? '-' }}
                             </dd>
                         </div>
                         <div class="mb-4 grid grid-cols-3 gap-4">

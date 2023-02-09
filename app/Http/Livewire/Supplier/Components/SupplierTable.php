@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Supplier\Components;
 
 use App\Models\Goods;
+use App\Models\GoodsCategory;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -19,7 +20,7 @@ class SupplierTable extends DataTableComponent
         $this->setColumnSelectStatus(false);
         $this->setConfigurableAreas([
             'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
+                'livewire.livewire-datatable.add-action-button',
                 [
                     'route' => route('supplier.add')
                 ],
@@ -42,5 +43,9 @@ class SupplierTable extends DataTableComponent
             Column::make('Actions', 'id')
                 ->view('livewire.supplier.components.supplier-action-menu'),
         ];
+    }
+
+    public function actionDelete($id) {
+        Supplier::where('id', $id)->delete();
     }
 }

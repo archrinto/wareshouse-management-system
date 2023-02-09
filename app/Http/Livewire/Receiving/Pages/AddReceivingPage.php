@@ -39,11 +39,13 @@ class AddReceivingPage extends Component
     }
 
     public function loadSuppliersOptions() {
-        $this->supplierOptions = Supplier::pluck('name', 'id');
+        $this->supplierOptions = Supplier::pluck('name', 'id')->toArray();
     }
 
     public function loadGoodsOptions() {
-        $this->goodsOptions = Goods::get()->pluck('code_name', 'id');
+        $this->goodsOptions = Goods::all()
+            ->pluck('code_name', 'id')
+            ->toArray();
     }
 
     public function addItem() {
@@ -64,7 +66,7 @@ class AddReceivingPage extends Component
             'category_id' => $categoryId,
             'supplier_id' => $this->supplierId,
             'transaction_at' => strtotime($this->receiveAt),
-            'description' => $this->description,
+            'description' => $this->description
         ]);
 
         if ($transaction) {

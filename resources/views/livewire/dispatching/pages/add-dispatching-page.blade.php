@@ -48,7 +48,7 @@
                     <div class="mb-3 pb-3 border-b text-xs uppercase">
                         {{ __('Dispatching Items') }}
                     </div>
-                    @include('components.goods-selector')
+                    @include('livewire.components.goods-selection')
                 </div>
                 <div class="bg-gray-50 px-4 py-4 mt-4 flex justify-between border-t rounded-b-md">
                     <a href="{{ route('dispatching.index') }}" class="inline-flex justify-center rounded-md bg-white py-2 px-4 text-sm font-medium border border-gray-300 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">

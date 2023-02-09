@@ -38,7 +38,11 @@ class GoodsCategoryTable extends DataTableComponent
             Column::make('Name')
                 ->sortable(),
             Column::make('Actions', 'id')
-                ->view('livewire.goods-category.components.category-action-menu'),
+                ->view('livewire.components.datatable-row-actions'),
         ];
+    }
+
+    public function actionDelete($id) {
+        GoodsCategory::where('id', $id)->delete();
     }
 }
