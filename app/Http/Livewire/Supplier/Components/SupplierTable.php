@@ -31,16 +31,16 @@ class SupplierTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name')
-                ->sortable()
+            Column::make(__('Name'), 'name')
                 ->searchable(),
-            Column::make('Contact Person', 'cp_name')
+            Column::make(__('Contact Person'), 'cp_name')
                 ->sortable(),
-            Column::make('Contact Phone', 'cp_phone')
+            Column::make(__('Contact Phone'), 'cp_phone')
                 ->sortable(),
-            Column::make('Created at', 'created_at')
+            Column::make(__('Created at'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
-            Column::make('Actions', 'id')
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.supplier.components.supplier-action-menu'),
         ];
     }

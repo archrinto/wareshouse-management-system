@@ -20,6 +20,15 @@ class AddGoodsPage extends Component
     public $categoryOptions;
     public $unitOptions;
 
+    protected $rules = [
+        'name' => 'required|max:80',
+        'code' => 'required|max:25',
+        'description' => 'max:200',
+        'stockLimit' => 'numeric|min:0',
+        'unitId' => 'required',
+        'price' => 'numeric|min:0'
+    ];
+
     public function mount() {
         $this->loadUnitOptions();
         $this->loadCategoryOptions();
@@ -34,6 +43,8 @@ class AddGoodsPage extends Component
     }
 
     public function submit() {
+        $this->validate();
+
         $goods = Goods::create([
             'name' => $this->name,
             'code' => $this->code,

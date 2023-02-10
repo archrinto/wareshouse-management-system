@@ -40,7 +40,7 @@ class GoodsTransactionHistoryTable extends DataTableComponent
         return [
            Column::make(__('Transaction At'), 'transaction.transaction_at')
                ->format(
-                   fn($value, $row, $column) => date('l d F Y', $value)
+                   fn($value, $row, $column) => format_date($value)
                )
                ->sortable(),
            Column::make(__('Transaction Category'), 'transaction.category.name')

@@ -27,16 +27,18 @@ class UserTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name')
+            Column::make(__('Name'), 'name')
+                ->searchable()
                 ->sortable(),
-            Column::make('Email', 'email'),
-            Column::make('Created at', 'created_at')
+            Column::make(__('Email'), 'email')
+                ->searchable(),
+            Column::make(__('Created at'), 'created_at')
                 ->sortable(),
             Column::make(__('Roles'))
                 ->label(
                     fn($row, $column) => join(', ', $row->roles->pluck('name')->toArray())
                 ),
-            Column::make('Actions', 'id')
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.shipper.components.shipper-action-menu'),
         ];
     }

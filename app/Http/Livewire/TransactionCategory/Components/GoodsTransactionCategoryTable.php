@@ -22,7 +22,7 @@ class GoodsTransactionCategoryTable extends DataTableComponent
         $this->setColumnSelectStatus(false);
         $this->setConfigurableAreas([
             'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button', 
+                'livewire.livewire-datatable.add-action-button',
                 [
                     'route' => route('transaction-category.add')
                 ],
@@ -33,10 +33,11 @@ class GoodsTransactionCategoryTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name')
+            Column::make(__('Name'), 'name')
+                ->searchable()
                 ->sortable(),
-            Column::make('Description'),
-            Column::make('Actions', 'id')
+            Column::make(__('Description'), 'description'),
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.components.datatable-row-actions'),
         ];
     }

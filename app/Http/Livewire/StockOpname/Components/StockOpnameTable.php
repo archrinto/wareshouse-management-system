@@ -41,20 +41,21 @@ class StockOpnameTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Stock Opname At', 'transaction_at')
+            Column::make(__('Stock Opname At'), 'transaction_at')
                 ->sortable()
                 ->format(
-                    fn($value, $row, Column $column) => date('l d F Y', $value)
+                    fn($value, $row, Column $column) => format_date($value)
                 ),
-            Column::make('Category', 'category.name')
+            Column::make(__('Category'), 'category.name')
                 ->sortable(),
-            Column::make('Items')
+            Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make('Created By', 'created_by')
+            Column::make(__('Created By'), 'created_by')
                 ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
-            Column::make('Created At', 'created_at')
+            Column::make(__('Created At'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
             Column::make(__('Actions'), 'id')
                 ->view('livewire.stock-opname.components.stock-opname-action-menu')

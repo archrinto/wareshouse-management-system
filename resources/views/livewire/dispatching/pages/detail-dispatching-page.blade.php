@@ -31,7 +31,7 @@
                                 {{ __('Dispatch at') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->transaction_at_formatted ?? '-' }}
+                                {{ format_date($transaction->transaction_at) ?? '-' }}
                             </dd>
                         </div>
                         <div class="my-4 grid grid-cols-3 gap-4">
@@ -89,7 +89,7 @@
                                 {{ __('Created at') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->created_at ?? '-' }}
+                                {{ format_date($transaction->created_at) ?? '-' }}
                             </dd>
                         </div>
                     </dl>

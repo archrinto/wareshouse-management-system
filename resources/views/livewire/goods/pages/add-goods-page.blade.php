@@ -13,7 +13,7 @@
         <div class="mt-5 md:col-span-2 md:mt-0">
             <form wire:submit.prevent="submit" method="POST">
                 <div class="shadow sm:overflow-hidden sm:rounded-md">
-                    <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
+                    <div class="space-y-4 bg-white px-4 py-5 sm:p-6">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
@@ -27,6 +27,9 @@
                                         placeholder="{{ __('Code') }}"
                                     >
                                 </div>
+                                @error('code')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -42,6 +45,9 @@
                                         placeholder="{{ __('Name') }}"
                                     >
                                 </div>
+                                @error('name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -57,6 +63,9 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('unitId')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -71,6 +80,9 @@
                                        multiple="true"
                                    />
                                 </div>
+                                @error('categoryIds')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -80,12 +92,15 @@
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
-                                        wire:model.dafer="price"
+                                        wire:model.defer="price"
                                         type="number"
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="{{ __('Price') }}"
                                     >
                                 </div>
+                                @error('price')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -95,12 +110,15 @@
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
-                                        wire:model.dafer="stockLimit"
+                                        wire:model.defer="stockLimit"
                                         type="number"
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="{{ __('Stock Limit') }}"
                                     >
                                 </div>
+                                @error('stockLimit')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div>
@@ -116,6 +134,9 @@
                                     placeholder="Goods description"
                                 ></textarea>
                             </div>
+                            @error('description')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-4 flex justify-between sm:px-6 border-t">

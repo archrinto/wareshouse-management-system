@@ -15,13 +15,20 @@ class EditSupplierPage extends Component
     public $supplier;
     public $supplierId;
 
+    protected $rules = [
+        'name' => 'required|max:60',
+        'address' => 'max:200',
+        'cp_phone' => 'max:15|min:9',
+        'cp_name' => 'max:60'
+    ];
+
     public function mount($id) {
         $this->supplierId = $id;
         $this->loadSupplier();
     }
 
     public function loadSupplier() {
-        $this->supplier = Supplier::find($this->supplierId)->first();
+        $this->supplier = Supplier::where('id', $this->supplierId)->first();
         if ($this->supplier) {
             $this->name = $this->supplier->name;
             $this->address = $this->supplier->address;
@@ -31,9 +38,11 @@ class EditSupplierPage extends Component
             return;
         }
         return redirect()->to(route('shipper.index'));
-    } 
-    
+    }
+
     public function submit() {
+        $this->validate();
+
         $this->supplier->update([
             'name' => $this->name,
             'address' => $this->address,

@@ -23,7 +23,7 @@
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
-                                        wire:model.lazy="name"
+                                        wire:model.defer="name"
                                         type="text"
                                         name="company-website"
                                         id="company-website"
@@ -39,7 +39,7 @@
                             </label>
                             <div class="mt-1">
                                 <textarea
-                                    wire:model.lazy="description"
+                                    wire:model.defer="description"
                                     name="about"
                                     rows="3"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

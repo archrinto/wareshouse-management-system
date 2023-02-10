@@ -1,7 +1,7 @@
 <div>
     <div class="mb-6">
         <div class="mb-3 flex items-center gap-4">
-            <a href="{{ route('receiving.index') }}">
+            <a href="{{ route('stock-opname.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
@@ -39,7 +39,7 @@
                                 {{ __('Receive at') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->transaction_at_formatted ?? '-' }}
+                                {{ format_date($transaction->transaction_at) ?? '-' }}
                             </dd>
                         </div>
                         <div class="my-4 grid grid-cols-3 gap-4">
@@ -73,7 +73,7 @@
                         @foreach($transaction->items as $item)
                             <div class="col-span-2 text-gray-900">{{ $item->goods->codeName }}</div>
                             <div class="text-gray-900">{{ $item->quantity }}</div>
-                            <div class="text-gray-900">{{ $item->goods->unit->name ?? '-' }}</div>
+                            <div class="text-gray-900">{{ $item->goods->unit->unit ?? '-' }}</div>
                         @endforeach
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                 {{ __('Created at') }}
                             </dt>
                             <dd class="text-gray-900 col-span-2 mt-0">
-                                {{ $transaction->created_at ?? '-' }}
+                                {{ format_date($transaction->created_at) ?? '-' }}
                             </dd>
                         </div>
                     </dl>

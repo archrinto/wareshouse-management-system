@@ -35,9 +35,9 @@ class GoodsCategoryTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name')
+            Column::make(__('Name'), 'name')
                 ->sortable(),
-            Column::make('Actions', 'id')
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.components.datatable-row-actions'),
         ];
     }

@@ -31,13 +31,15 @@ class ShipperTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Name')
+            Column::make(__('Name'), 'name')
+                ->searchable()
                 ->sortable(),
-            Column::make('Contact Phone', 'cp_phone')
+            Column::make(__('Contact Phone'), 'cp_phone')
                 ->sortable(),
-            Column::make('Created at', 'created_at')
+            Column::make(__('Created at'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
-            Column::make('Actions', 'id')
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.shipper.components.shipper-action-menu'),
         ];
     }

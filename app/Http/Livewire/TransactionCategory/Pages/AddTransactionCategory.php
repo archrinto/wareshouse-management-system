@@ -11,6 +11,12 @@ class AddTransactionCategory extends Component
     public $description;
     public $operation;
 
+    protected $rules = [
+        'name' => 'required|max:60',
+        'description' => 'max:200',
+        'operation' => 'required'
+    ];
+
     public $operationOptions = [];
 
     public function mount() {

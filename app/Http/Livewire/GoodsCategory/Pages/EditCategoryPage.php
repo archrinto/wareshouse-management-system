@@ -12,13 +12,18 @@ class EditCategoryPage extends Component
     public $name;
     public $description;
 
+    protected $rules = [
+        'name' => 'required|max:60',
+        'description' => 'max:200',
+    ];
+
     public function mount($id) {
         $this->categoryId = $id;
         $this->loadCategory();
     }
 
     public function loadCategory() {
-        $this->category = GoodsCategory::find($this->categoryId);
+        $this->category = GoodsCategory::where('id', $this->categoryId);
         if (!$this->category) {
             return redirect()->to('goods-category.index');
         }
@@ -28,6 +33,8 @@ class EditCategoryPage extends Component
     }
 
     public function submit() {
+        $this->validate();
+
         $this->category->update([
             'name' => $this->name,
             'description' => $this->description,

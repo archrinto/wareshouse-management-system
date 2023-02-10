@@ -15,7 +15,6 @@ use Livewire\Component;
 
 class AddStockOpnamePage extends Component
 {
-    public $type;
     public $categoryId;
     public $stockOpnameAt = '';
     public $goodsItems = [];
@@ -24,6 +23,14 @@ class AddStockOpnamePage extends Component
     public $categoryOptions = [];
     public $goodsOptions = [];
     public $typeOptions = [];
+
+    protected $rules = [
+        'categoryId' => 'required',
+        'stockOpnameAt' => 'required',
+        'description' => 'max:200',
+        'goodsItems.*.goodsId' => 'required',
+        'goodsItems.*.quantity' => 'required|numeric|min:1'
+    ];
 
     public function mount() {
         $this->loadGoodsOptions();
@@ -55,6 +62,8 @@ class AddStockOpnamePage extends Component
     }
 
     public function submit() {
+        $this->validate();
+
         $transaction = GoodsTransaction::create([
             'category_id' => $this->categoryId,
             'transaction_at' => strtotime($this->stockOpnameAt),
@@ -73,7 +82,7 @@ class AddStockOpnamePage extends Component
 
             event(new GoodsTransactionCreated($transaction));
 
-            return redirect()->to(route('dispatching.detail', $transaction->id));
+            return redirect()->to(route('stock-opname.detail', $transaction->id));
         }
     }
 
