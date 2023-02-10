@@ -116,5 +116,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/stock-opname-detail/{id}', 'stockOpnameDetail')
             ->name('print-pdf.stock-opname-detail');
     })->middleware(['role:Super Admin']);;
+
+    Route::prefix('/roles')->group(function() {
+        Route::get('/add', App\Http\Livewire\User\Pages\RoleAddPage::class)
+            ->name('role.add');
+    });
 });
 
