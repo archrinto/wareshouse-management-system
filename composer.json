@@ -31,7 +31,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/DateTimeHelper.php"
+            "app/Helpers/DateTimeHelper.php",
+            "app/Helpers/StringHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",
