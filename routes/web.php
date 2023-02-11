@@ -22,16 +22,23 @@ Route::get('/logout', App\Http\Livewire\User\Pages\LogoutPage::class)
 Route::middleware('auth')->group(function () {
     Route::get('/', App\Http\Livewire\Dashboard\Pages\IndexPage::class)
         ->name('dashboard.index');
+
     Route::prefix('/users')->group(function() {
         Route::get('/', App\Http\Livewire\User\Pages\UserIndexPage::class)
+            ->middleware('permission:user.view')
             ->name('user.index');
         Route::get('/add', App\Http\Livewire\User\Pages\UserAddPage::class)
-            ->name('user.add');
-    })->middleware(['role:Super Admin']);
+            ->name('user.add')
+            ->middleware('permission:user.create');
+        Route::get('{id}/edit', App\Http\Livewire\User\Pages\UserEditPage::class)
+            ->name('user.edit')
+            ->middleware('permission:user.update');
+    });
 
     Route::prefix('/goods')->group(function() {
         Route::get('/', App\Http\Livewire\Goods\Pages\IndexPage::class)
-            ->name('goods.index');
+            ->name('goods.index')
+            ->middleware('permission:goods.view');
         Route::get('/add', App\Http\Livewire\Goods\Pages\AddGoodsPage::class)
             ->name('goods.add')
             ->middleware('permission:goods.create');
@@ -44,16 +51,20 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/goods-categories')->group(function() {
         Route::get('/', App\Http\Livewire\GoodsCategory\Pages\CategoryPage::class)
-            ->name('goods-category.index');
+            ->name('goods-category.index')
+            ->middleware('permission:goods-category.view');
         Route::get('/add', App\Http\Livewire\GoodsCategory\Pages\AddCategoryPage::class)
-            ->name('goods-category.add');
+            ->name('goods-category.add')
+            ->middleware('permission:goods-category.create');
         Route::get('/{id}/edit', App\Http\Livewire\GoodsCategory\Pages\EditCategoryPage::class)
-            ->name('goods-category.edit');
+            ->name('goods-category.edit')
+            ->middleware('permission:goods-category.update');
     });
 
     Route::prefix('/suppliers')->group(function() {
         Route::get('/', App\Http\Livewire\Supplier\Pages\IndexPage::class)
-            ->name('supplier.index');
+            ->name('supplier.index')
+            ->middleware('permission:supplier.view');
         Route::get('/add', App\Http\Livewire\Supplier\Pages\AddSupplierPage::class)
             ->name('supplier.add');
         Route::get('{id}/edit', App\Http\Livewire\Supplier\Pages\EditSupplierPage::class)
@@ -103,10 +114,15 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/transaction-categories')->group(function() {
         Route::get('/', App\Http\Livewire\TransactionCategory\Pages\IndexPage::class)
-            ->name('transaction-category.index');
+            ->name('transaction-category.index')
+            ->middleware('permission:goods-transaction-category.view');
         Route::get('/add', App\Http\Livewire\TransactionCategory\Pages\AddTransactionCategory::class)
-            ->name('transaction-category.add');
-    })->middleware(['role:Super Admin']);
+            ->name('transaction-category.add')
+            ->middleware('permission:goods-transaction-category.create');
+        Route::get('{id}/edit', App\Http\Livewire\TransactionCategory\Pages\AddTransactionCategory::class)
+            ->name('transaction-category.edit')
+            ->middleware('permission:goods-transaction-category.update');
+    });
 
     Route::prefix('/print-pdf')->controller(\App\Http\Controllers\PrintPDFController::class)->group(function () {
         Route::get('/receiving-detail/{id}', 'receivingDetail')
@@ -115,11 +131,15 @@ Route::middleware('auth')->group(function () {
             ->name('print-pdf.dispatching-detail');
         Route::get('/stock-opname-detail/{id}', 'stockOpnameDetail')
             ->name('print-pdf.stock-opname-detail');
-    })->middleware(['role:Super Admin']);;
+    })->middleware(['role:Super Admin']);
 
     Route::prefix('/roles')->group(function() {
+        Route::get('/', App\Http\Livewire\User\Pages\RoleIndexPage::class)
+            ->name('role.index');
         Route::get('/add', App\Http\Livewire\User\Pages\RoleAddPage::class)
             ->name('role.add');
-    });
+        Route::get('{id}/edit', App\Http\Livewire\User\Pages\RoleAddPage::class)
+            ->name('role.edit');
+    })->middleware(['role:Super Admin']);
 });
 

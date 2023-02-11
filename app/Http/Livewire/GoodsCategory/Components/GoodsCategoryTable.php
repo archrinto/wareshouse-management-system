@@ -5,6 +5,7 @@ namespace App\Http\Livewire\GoodsCategory\Components;
 use App\Models\Goods;
 use App\Models\GoodsCategory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
@@ -22,14 +23,16 @@ class GoodsCategoryTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-        $this->setConfigurableAreas([
-            'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button',
-                [
-                    'route' => route('goods-category.add')
+        if (Auth::user()->hasPermissionTo('goods-category.create')) {
+            $this->setConfigurableAreas([
+                'toolbar-left-start' => [
+                    'livewire.livewire-datatable.add-action-button',
+                    [
+                        'route' => route('goods-category.add')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public function columns(): array
@@ -38,7 +41,7 @@ class GoodsCategoryTable extends DataTableComponent
             Column::make(__('Name'), 'name')
                 ->sortable(),
             Column::make(__('Actions'), 'id')
-                ->view('livewire.components.datatable-row-actions'),
+                ->view('livewire.goods-category.components.category-action-menu'),
         ];
     }
 

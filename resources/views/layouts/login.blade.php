@@ -15,6 +15,10 @@
 <body class="font-sans text-slate-500 antialiased h-full">
     {{ $slot }}
 
+    <livewire:components.toast-message />
+
     @livewireScripts
+    @stack('scripts')
+
 </body>
 </html>

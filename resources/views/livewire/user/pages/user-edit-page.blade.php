@@ -7,7 +7,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
                 </a>
-                <h3 class="text-2xl font-semibold">{{ __('Add User') }}</h3>
+                <h3 class="text-2xl font-semibold">{{ __('Edit User') }}</h3>
             </div>
         </div>
     </div>
@@ -18,14 +18,14 @@
                     <div class="space-y-4 bg-white px-4 py-5 sm:p-6">
                         <div class="mb-2">
                             <label for="company-website" class="block text-sm font-medium text-gray-700">
-                               {{ __('Name') }}
+                                {{ __('Name') }}
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <input
-                                   wire:model.defer="name"
-                                   type="text"
-                                   class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                   placeholder="{{ __('Name') }}"
+                                    wire:model.defer="name"
+                                    type="text"
+                                    class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="{{ __('Name') }}"
                                 >
                             </div>
                             @error('name')
@@ -67,6 +67,9 @@
                             <label for="company-website" class="block text-sm font-medium text-gray-700">
                                 {{ __('Password') }}
                             </label>
+                            <div class="bg-orange-100 rounded-md py-2 px-3 text-sm">
+                                {{ __('Leave the password blank if you don\'t want to change it') }}
+                            </div>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <input
                                     wire:model.defer="password"

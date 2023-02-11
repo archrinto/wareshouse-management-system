@@ -6,6 +6,7 @@ use App\Models\Goods;
 use App\Models\GoodsCategory;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
@@ -18,14 +19,16 @@ class SupplierTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-        $this->setConfigurableAreas([
-            'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button',
-                [
-                    'route' => route('supplier.add')
+        if (Auth::user()->hasPermissionTo('supplier.create')) {
+            $this->setConfigurableAreas([
+                'toolbar-left-start' => [
+                    'livewire.livewire-datatable.add-action-button',
+                    [
+                        'route' => route('supplier.add')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public function columns(): array

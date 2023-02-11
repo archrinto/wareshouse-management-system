@@ -19,7 +19,7 @@ class StockOpnameTable extends DataTableComponent
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
         $this->setDefaultSort('transaction_at', 'desc');
-        if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
+        if (Auth::user()->hasPermissionTo('goods-transaction.create')) {
             $this->setConfigurableAreas([
                 'toolbar-left-start' => [
                     'livewire.livewire-datatable.add-action-button',

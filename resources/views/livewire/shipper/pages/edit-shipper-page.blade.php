@@ -17,43 +17,51 @@
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
-                                    Shipper Name
+                                    {{ __('Shipper Name') }}
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
                                         wire:model.defer="name"
                                         type="text"
-                                        name="company-website"
-                                        id="company-website"
+
+
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Product name"
                                     >
                                 </div>
+                                @error('name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
                                 <label for="company-website" class="block text-sm font-medium text-gray-700">
-                                    Contact Phone
+                                    {{ __('Contact Phone') }}
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
                                         wire:model.defer="cp_phone"
                                         type="text"
-                                        name="company-website"
-                                        id="company-website"
+
+
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="Contact phone"
                                     >
                                 </div>
+                                @error('cp_phone')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-4 flex justify-between sm:px-6 border-t">
                         <a href="{{ route('shipper.index') }}" class="inline-flex justify-center rounded-md bg-white py-2 px-4 text-sm font-medium border border-gray-300 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Cancel
+                            {{ __('Cancel') }}
                         </a>
-                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-slate-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
+                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-slate-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            {{ __('Save') }}
+                        </button>
                     </div>
                 </div>
             </form>

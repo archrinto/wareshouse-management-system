@@ -27,6 +27,9 @@
                                         placeholder="{{ __('Supplier Name') }}"
                                     >
                                 </div>
+                                @error('name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -42,6 +45,9 @@
                                         placeholder="{{ __('Address') }}"
                                     >
                                 </div>
+                                @error('address')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -57,6 +63,9 @@
                                         placeholder="{{ __('Contact Name') }}"
                                     >
                                 </div>
+                                @error('cp_name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -72,6 +81,9 @@
                                         placeholder="{{ __('Contact Phone Number') }}"
                                     >
                                 </div>
+                                @error('cp_phone')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
