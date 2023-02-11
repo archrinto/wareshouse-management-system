@@ -38,7 +38,7 @@
                                 {{ __('Stock Opname Date') }}
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <x-date-picker wire:model.defer="stockOpnameAt" dateFormat="YYYY-MM-DD"  />
+                                <x-datepicker wire:model.defer="stockOpnameAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                             @error('stockOpnameAt')
                             <span class="text-sm text-red-500">{{ $message }}</span>

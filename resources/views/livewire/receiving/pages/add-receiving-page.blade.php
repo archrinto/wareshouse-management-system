@@ -38,7 +38,7 @@
                                 {{ __('Receive At') }}
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <x-date-picker wire:model.defer="receiveAt" dateFormat="YYYY-MM-DD"  />
+                                <x-datepicker wire:model.defer="receiveAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                             @error("receiveAt")
                                 <span class="text-sm text-red-500">{{ $message }}</span>

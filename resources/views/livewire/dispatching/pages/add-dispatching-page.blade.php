@@ -38,7 +38,7 @@
                                 {{ __('Dispatch Date') }}
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <x-date-picker wire:model.defer="dispatchAt" dateFormat="YYYY-MM-DD"  />
+                                <x-datepicker wire:model.defer="dispatchAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                             @error('dispatchAt')
                                 <span class="text-sm text-red-500">{{ $message }}</span>
