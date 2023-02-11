@@ -17,8 +17,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 60);
             $table->string('address', 200)->nullable();
-            $table->string('cp_name')->nullable();
-            $table->string('cp_phone')->nullable();
+            $table->string('cp_name', 60)->nullable();
+            $table->string('cp_phone', 20)->nullable();
             $table->foreignUuid('created_by')->nullable();
             $table->foreignUuid('updated_by')->nullable();
             $table->timestamps();
