@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
             ->name('receiving.detail');
         Route::get('/add', App\Http\Livewire\Receiving\Pages\AddReceivingPage::class)
             ->name('receiving.add')
-            ->middleware('permission:goods_transaction.create');
+            ->middleware('permission:goods-transaction.create');
     });
 
     Route::prefix('/dispatching')->group(function() {
@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function () {
             ->name('dispatching.index');
         Route::get('/add', App\Http\Livewire\Dispatching\Pages\AddDispatchingPage::class)
             ->name('dispatching.add')
-            ->middleware('permission:goods_transaction.create');
+            ->middleware('permission:goods-transaction.create');
         Route::get('/{id}/detail', App\Http\Livewire\Dispatching\Pages\DetailDispatchingPage::class)
             ->name('dispatching.detail');
     });
@@ -107,7 +107,7 @@ Route::middleware('auth')->group(function () {
             ->name('stock-opname.index');
         Route::get('/add', App\Http\Livewire\StockOpname\Pages\AddStockOpnamePage::class)
             ->name('stock-opname.add')
-            ->middleware('permission:goods_transaction.create');
+            ->middleware('permission:goods-transaction.create');
         Route::get('/{id}/detail', App\Http\Livewire\StockOpname\Pages\DetailStockOpnamePage::class)
             ->name('stock-opname.detail');
     });

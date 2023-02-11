@@ -6,7 +6,7 @@
         {{ __('Detail') }}
     </a>
 
-    @can('goods_transaction.delete')
+    @can('goods-transaction.delete')
         <a
             href="#"
             wire:click.prevent="actionDelete('{{ $row->id }}')"
