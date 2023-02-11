@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignUuid('category_id')->nullable();
             $table->foreignUuid('supplier_id')->nullable();
             $table->foreignUuid('shipper_id')->nullable();
-            $table->string('description', 200)->nullable();
+            $table->string('description')->nullable();
             $table->foreignUuid('created_by')->nullable();
             $table->foreignUuid('updated_by')->nullable();
             $table->timestamps();

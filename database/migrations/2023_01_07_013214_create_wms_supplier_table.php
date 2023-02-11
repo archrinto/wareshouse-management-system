@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('wms_supplier', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 60);
-            $table->string('address', 200)->nullable();
+            $table->string('address')->nullable();
             $table->string('cp_name', 60)->nullable();
             $table->string('cp_phone', 20)->nullable();
             $table->foreignUuid('created_by')->nullable();
