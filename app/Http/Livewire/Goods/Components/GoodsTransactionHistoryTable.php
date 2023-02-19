@@ -46,6 +46,10 @@ class GoodsTransactionHistoryTable extends DataTableComponent
            Column::make(__('Transaction Category'), 'transaction.category.name')
                 ->sortable(),
            Column::make(__('Quantity'), 'quantity')
+                ->format(fn($value) => number_format($value))
+                ->sortable(),
+           Column::make(__('Prev. Quantity'), 'quantity_before')
+                ->format(fn($value) => number_format($value))
                 ->sortable(),
         ];
     }
