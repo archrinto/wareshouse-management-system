@@ -55,7 +55,7 @@
                 <tr>
                     <td>[{{ __('Product Code') }}]</td>
                     <td>[{{ __('Product Name') }}]</td>
-                    <td>[{{ __('Quantity') }}]</td>
+                    <td>[{{ __('Stock') }}]</td>
                     <td>[{{ __('Unit') }}]</td>
                     <td>[{{ __('Value') }}]</td>
                 </tr>
