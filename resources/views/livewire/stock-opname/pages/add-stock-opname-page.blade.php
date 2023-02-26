@@ -50,14 +50,6 @@
                         {{ __('Stock Opname Items') }}
                     </div>
                     <div class="">
-                        <div class="grid grid-cols-2 mb-3 gap-4">
-                            <div class="text-sm font-medium text-gray-700">
-                                <span>{{ __('Goods') }}</span>
-                            </div>
-                            <div class="text-sm font-medium text-gray-700">
-                                <span>{{ __('Quantity') }}</span>
-                            </div>
-                        </div>
                         @include('livewire.components.goods-selection')
                     </div>
                 </div>

@@ -11,6 +11,7 @@ use App\Models\GoodsTransactionCategory;
 use App\Models\GoodsTransactionGoods;
 use App\Models\Shipper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 use Livewire\Component;
 
 class AddStockOpnamePage extends Component
@@ -63,6 +64,15 @@ class AddStockOpnamePage extends Component
 
     public function submit() {
         $this->validate();
+        $operation = GoodsTransactionCategory::where('id', $this->categoryId)->pluck('operation')->first();
+
+        if ($operation == GoodsTransactionCategory::$subtractionOperation) {
+            $this->withValidator(function (Validator $validator) {
+                $validator->after(function ($validator) {
+                    $this->validateStock($validator);
+                });
+            })->validate(['goodsItems.*.goodsId' => 'required']);
+        }
 
         $transaction = GoodsTransaction::create([
             'category_id' => $this->categoryId,
@@ -83,6 +93,17 @@ class AddStockOpnamePage extends Component
             event(new GoodsTransactionCreated($transaction));
 
             return redirect()->to(route('stock-opname.detail', $transaction->id));
+        }
+    }
+
+    public function validateStock($validator) {
+        $goodsIds = array_column($this->goodsItems, 'goodsId');
+        $goodsStocks = Goods::whereIn('id', $goodsIds)->pluck('stock', 'id')->toArray();
+
+        foreach ($this->goodsItems as $key => $item) {
+            if ($item['quantity'] > $goodsStocks[$item['goodsId']]) {
+                $validator->errors()->add("goodsItems.$key.quantity", 'The quantity field can not more than stock.');
+            }
         }
     }
 
