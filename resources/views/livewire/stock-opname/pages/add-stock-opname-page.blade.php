@@ -37,10 +37,27 @@
                             <label class="block text-sm font-medium text-gray-700">
                                 {{ __('Stock Opname Date') }}
                             </label>
-                            <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="mt-1 flex shadow-sm">
                                 <x-datepicker wire:model.defer="stockOpnameAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                             @error('stockOpnameAt')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="about" class="block text-sm font-medium text-gray-700">
+                                {{ __('Description')  }}
+                            </label>
+                            <div class="mt-1">
+                                <textarea
+                                    wire:model.defer="description"
+                                    name="description"
+                                    rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="{{ __('Description')  }}"
+                                ></textarea>
+                            </div>
+                            @error('description')
                             <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
                         </div>

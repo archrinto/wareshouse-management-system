@@ -1,6 +1,6 @@
 <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
     <div class="container mx-auto">
-        <div class="mb-5 w-64">
+        <div class="w-64">
             <div class="relative">
                 <input type="hidden" name="date" x-ref="date" :value="datepickerValue" />
                 <input
@@ -26,7 +26,7 @@
                             <span x-text="year" class="ml-1 text-lg text-gray-600 font-normal"></span>
                         </div>
                         <div>
-                            <button 
+                            <button
                                 type="button"
                                 class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-100 p-1 rounded-full"
                                 @click="if (month == 0) {
@@ -42,10 +42,10 @@
                                 type="button"
                                 class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-100 p-1 rounded-full"
                                 @click="if (month == 11) {
-                                    month = 0; 
+                                    month = 0;
                                     year++;
                                 } else {
-                                    month++; 
+                                    month++;
                                 } getNoOfDays()"
                             >
                                 <svg class="h-6 w-6 text-gray-400 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,9 +70,9 @@
                         <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
                             <div style="width: 14.28%" class="px-1 mb-1">
                                 <div @click="getDateValue(date)" x-text="date" class="cursor-pointer text-center text-sm leading-none rounded-full leading-loose transition ease-in-out duration-100" :class="{
-                      'bg-indigo-200': isToday(date) == true, 
+                      'bg-indigo-200': isToday(date) == true,
                       'text-gray-600 hover:bg-indigo-200': isToday(date) == false && isSelectedDate(date) == false,
-                      'bg-indigo-500 text-white hover:bg-opacity-75': isSelectedDate(date) == true 
+                      'bg-indigo-500 text-white hover:bg-opacity-75': isSelectedDate(date) == true
                     }"></div>
                             </div>
                         </template>

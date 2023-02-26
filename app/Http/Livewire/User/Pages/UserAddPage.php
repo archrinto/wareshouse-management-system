@@ -25,7 +25,7 @@ class UserAddPage extends Component
     ];
 
     public function mount() {
-        $this->roleOptions = Role::pluck('name', 'name')->toArray();
+        $this->roleOptions = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->toArray();
     }
 
     public function submit() {
