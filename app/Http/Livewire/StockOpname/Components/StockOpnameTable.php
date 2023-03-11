@@ -18,6 +18,7 @@ class StockOpnameTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setSearchDebounce(500);
         $this->setDefaultSort('transaction_at', 'desc');
         if (Auth::user()->hasPermissionTo('goods-transaction.create')) {
             $this->setConfigurableAreas([
@@ -42,18 +43,21 @@ class StockOpnameTable extends DataTableComponent
     {
         return [
             Column::make(__('Stock Opname At'), 'transaction_at')
+                ->searchable()
                 ->sortable()
                 ->format(
                     fn($value, $row, Column $column) => format_date($value)
                 ),
             Column::make(__('Category'), 'category.name')
+                ->searchable()
                 ->sortable(),
             Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make(__('Created By'), 'created_by')
-                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
+            Column::make(__('Created By'), 'creator.name')
+                ->searchable()
+                ->format(fn($value, $row) => $value ?? 'n/a'),
             Column::make(__('Created At'), 'created_at')
                 ->format(fn($value) => format_date($value))
                 ->sortable(),
