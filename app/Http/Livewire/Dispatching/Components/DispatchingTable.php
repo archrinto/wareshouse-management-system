@@ -18,6 +18,7 @@ class DispatchingTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setSearchDebounce(500);
         $this->setDefaultSort('transaction_at', 'desc');
         if (Auth::user()->hasPermissionTo('goods-transaction.create')) {
             $this->setConfigurableAreas([
@@ -47,13 +48,15 @@ class DispatchingTable extends DataTableComponent
                     fn($value, $row, Column $column) => format_date($value)
                 ),
             Column::make(__('Shipper'), 'shipper.name')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make(__('Created By'), 'created_by')
-                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
+            Column::make(__('Created By'), 'creator.name')
+                ->format(fn($value, $row) => $value ?? 'n/a')
+                ->searchable(),
             Column::make(__('Created At'), 'created_at')
                 ->format(fn($value) => format_date($value))
                 ->sortable(),

@@ -42,18 +42,21 @@ class ReceivingTable extends DataTableComponent
     {
         return [
             Column::make(__('Receive At'), 'transaction_at')
+                ->searchable()
                 ->sortable()
                 ->format(
                     fn($value, $row, Column $column) => format_date($value)
                 ),
-            Column::make(__('Supplier'), 'category.name')
-                ->sortable(),
+            Column::make(__('Supplier'), 'supplier.name')
+                ->sortable()
+                ->searchable(),
             Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make(__('Created By'), 'created_by')
-                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
+            Column::make(__('Created By'), 'creator.name')
+                ->searchable()
+                ->format(fn($value, $row) => $value ?? 'n/a'),
             Column::make(__('Created At'), 'created_at')
                 ->format(fn($value) => format_date($value))
                 ->sortable(),

@@ -27,6 +27,7 @@ class GoodsTable extends DataTableComponent
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
         $this->setPerPageAccepted([10, 25, 50, 100, -1]);
+        $this->setSearchDebounce(500);
 
         if (Auth::user()->hasPermissionTo('goods.create')) {
             $configurationAreas['toolbar-left-start'] = [
@@ -51,9 +52,11 @@ class GoodsTable extends DataTableComponent
     {
         return [
             Column::make(__('Code'), 'code')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make(__('Name'), 'name')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make(__('Stock'), 'stock')
                 ->format(fn($value, $row, $column) => number_format($value))
                 ->sortable(),
