@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\User\Pages;
 
+use App\Models\User;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
@@ -11,11 +12,36 @@ class UserAddPage extends Component
     public $password;
     public $confirmPassword;
     public $email;
+    public $role;
 
     public $roleOptions = [];
 
+    protected $rules = [
+        'name' => 'required|max:60',
+        'password' => 'required',
+        'role' => 'required',
+        'confirmPassword' => 'required|same:password',
+        'email' => 'required|email|unique:users'
+    ];
+
     public function mount() {
-        $this->roleOptions = Role::pluck('name', 'id');
+        $this->roleOptions = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->toArray();
+    }
+
+    public function submit() {
+        $this->validate();
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'email_verified_at' => now(),
+        ]);
+
+        if ($user) {
+            $user->assignRole($this->roleOptions[$this->role]);
+        }
+
+        return redirect()->to(route('user.index'));
     }
 
     public function render()

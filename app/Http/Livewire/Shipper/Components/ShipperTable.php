@@ -6,6 +6,7 @@ use App\Models\Goods;
 use App\Models\GoodsCategory;
 use App\Models\Shipper;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
@@ -18,26 +19,30 @@ class ShipperTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
-        $this->setConfigurableAreas([
-            'toolbar-left-start' => [
-                'livewire.livewire-datatable.add-action-button',
-                [
-                    'route' => route('shipper.add')
+        if (Auth::user()->hasPermissionTo('shipper.create')) {
+            $this->setConfigurableAreas([
+                'toolbar-left-start' => [
+                    'livewire.livewire-datatable.add-action-button',
+                    [
+                        'route' => route('shipper.add')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        }
     }
 
     public function columns(): array
     {
         return [
-            Column::make('Name')
+            Column::make(__('Name'), 'name')
+                ->searchable()
                 ->sortable(),
-            Column::make('Contact Phone', 'cp_phone')
+            Column::make(__('Contact Phone'), 'cp_phone')
                 ->sortable(),
-            Column::make('Created at', 'created_at')
+            Column::make(__('Created at'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
-            Column::make('Actions', 'id')
+            Column::make(__('Actions'), 'id')
                 ->view('livewire.shipper.components.shipper-action-menu'),
         ];
     }

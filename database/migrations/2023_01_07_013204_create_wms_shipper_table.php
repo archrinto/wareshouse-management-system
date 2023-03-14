@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('wms_shipper', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 60);
-            $table->string('cp_phone');
+            $table->string('cp_phone', 20)->nullable();
             $table->foreignUuid('created_by')->nullable();
             $table->foreignUuid('updated_by')->nullable();
             $table->timestamps();

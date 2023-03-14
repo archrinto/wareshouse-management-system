@@ -23,14 +23,17 @@
                                 </label>
                                 <div class="mt-1 flex rounded-md shadow-sm">
                                     <input
-                                        wire:model.lazy="name"
+                                        wire:model.defer="name"
                                         type="text"
-                                        name="company-website"
-                                        id="company-website"
+
+
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="{{ __('Name') }}"
                                     >
                                 </div>
+                                @error('name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div>
@@ -39,13 +42,16 @@
                             </label>
                             <div class="mt-1">
                                 <textarea
-                                    wire:model.lazy="description"
+                                    wire:model.defer="description"
                                     name="about"
                                     rows="3"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                     placeholder="{{ __('Description') }}"
                                 ></textarea>
                             </div>
+                            @error('description')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-4 flex justify-between sm:px-6 border-t">

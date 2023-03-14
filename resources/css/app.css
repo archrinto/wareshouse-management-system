@@ -10,3 +10,7 @@ input, select, textarea {
     color: rgb(75 85 99)
 }
 
+input::placeholder, textarea::placeholder {
+    opacity: 0.7;
+}
+

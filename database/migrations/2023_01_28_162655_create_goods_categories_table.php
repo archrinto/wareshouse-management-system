@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('wms_goods_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 60);
-            $table->string('description', 250)->nullable();
+            $table->string('description')->nullable();
             $table->foreignUuid('created_by')->nullable();
             $table->foreignUuid('updated_by')->nullable();
             $table->timestamps();

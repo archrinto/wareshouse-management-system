@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 40);
             $table->string('operation', 20)->nullable()->comment('subtraction, addition, or change');
-            $table->string('description', 150)->nullable();
+            $table->string('description')->nullable();
             $table->boolean('is_receiving')->default(false);
             $table->boolean('is_dispatching')->default(false);
             $table->boolean('is_locked')->default(false);

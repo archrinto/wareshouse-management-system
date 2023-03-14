@@ -1,13 +1,23 @@
 <div>
+    <div class="grid grid-cols-2 mb-3 gap-4">
+        <div class="text-sm font-medium text-gray-700">
+            <span>{{ __('Goods') }}</span>
+        </div>
+        <div class="text-sm font-medium text-gray-700">
+            <span>{{ __('Quantity') }}</span>
+        </div>
+    </div>
     @foreach($goodsItems as $index => $item)
         <div class="grid grid-cols-2 gap-4" wire:key="item-{{ $index }}">
             <div class="mb-3">
-                <div class="flex rounded-md shadow-sm">
-                    <x-select-search
-                        :data="$goodsOptions"
-                        wire:model.defer="goodsItems.{{ $index }}.goodsId"
-                        placeholder="-- {{ __('Select Goods') }} --"
-                    />
+                <div class="flex items-center">
+                    <div class="rounded-md shadow-sm flex-grow">
+                        <x-select-search
+                            :data="$goodsOptions"
+                            wire:model="goodsItems.{{ $index }}.goodsId"
+                            placeholder="-- {{ __('Select Goods') }} --"
+                        />
+                    </div>
                 </div>
                 @error("goodsItems.$index.goodsId")
                 <span class="text-sm text-red-500">{{ $message }}</span>

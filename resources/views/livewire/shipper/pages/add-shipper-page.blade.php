@@ -6,7 +6,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
             </a>
-            <h3 class="text-2xl font-semibold">Add Shipper</h3>
+            <h3 class="text-2xl font-semibold">{{ __('Add Shipper') }}</h3>
         </div>
     </div>
     <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -23,12 +23,15 @@
                                     <input
                                         wire:model.defer="name"
                                         type="text"
-                                        name="company-website"
-                                        id="company-website"
+
+
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="{{ __('Name') }}"
                                     >
                                 </div>
+                                @error('name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-6">
@@ -40,12 +43,15 @@
                                     <input
                                         wire:model.defer="cp_phone"
                                         type="text"
-                                        name="company-website"
-                                        id="company-website"
+
+
                                         class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         placeholder="{{ __('Phone Number') }}"
                                     >
                                 </div>
+                                @error('cp_phone')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

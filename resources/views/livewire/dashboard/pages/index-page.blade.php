@@ -17,7 +17,7 @@
                 </div>
                 <div class="flex-grow">
                     <h3 class="font-semibold text-xl">{{ $countAvailableStock }} items</h3>
-                    <p>Available Stock</p>
+                    <p>{{ __('Available Stock') }}</p>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                 </div>
                 <div class="flex-grow">
                     <h3 class="font-semibold text-xl">{{ $countLowStock }} items</h3>
-                    <p>Low Stock</p>
+                    <p>{{ __('Low Stock') }}</p>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                 </div>
                 <div class="flex-grow">
                     <h3 class="font-semibold text-xl">{{ $countOutOfStock }} items</h3>
-                    <p>Out of Stock</p>
+                    <p>{{ __('Out of Stock') }}</p>
                 </div>
             </div>
         </div>

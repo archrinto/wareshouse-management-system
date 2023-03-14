@@ -13,6 +13,7 @@ use App\Models\Shipper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Validator;
 use Livewire\Component;
 
 class AddDispatchingPage extends Component
@@ -20,6 +21,7 @@ class AddDispatchingPage extends Component
     public $shipperId;
     public $dispatchAt = '';
     public $goodsItems = [];
+    public $goodsInfo = [];
     public $description = '';
 
     public $shipperOptions;
@@ -45,13 +47,24 @@ class AddDispatchingPage extends Component
     }
 
     public function loadGoodsOptions() {
-        $this->goodsOptions = Goods::all()
-            ->pluck('code_name', 'id')
-            ->toArray();
+        $goods = Goods::with('unit')->get();
+        foreach ($goods as $item) {
+            $this->goodsOptions[$item->id] = $item->codeName;
+            $this->goodsInfo[$item->id] = [
+                'stock' => $item->stock,
+                'unit' => $item->unit->symbol
+            ];
+        }
     }
 
     public function submit() {
         $this->validate();
+        $this->withValidator(function (Validator $validator) {
+            $validator->after(function ($validator) {
+                $this->validateStock($validator);
+            });
+        })->validate(['goodsItems.*.goodsId' => 'required']);
+
         $categoryId = GoodsTransactionCategory::dispatching()->pluck('id')->first();
         $transaction = GoodsTransaction::create([
             'category_id' => $categoryId,
@@ -73,6 +86,18 @@ class AddDispatchingPage extends Component
             event(new GoodsTransactionCreated($transaction));
 
             return redirect()->to(route('dispatching.detail', $transaction->id));
+        }
+    }
+
+
+    public function validateStock($validator) {
+        $goodsIds = array_column($this->goodsItems, 'goodsId');
+        $goodsStocks = Goods::whereIn('id', $goodsIds)->pluck('stock', 'id')->toArray();
+
+        foreach ($this->goodsItems as $key => $item) {
+            if ($item['quantity'] > $goodsStocks[$item['goodsId']]) {
+                $validator->errors()->add("goodsItems.$key.quantity", 'The quantity field can not more than stock.');
+            }
         }
     }
 

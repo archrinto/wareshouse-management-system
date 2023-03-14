@@ -38,10 +38,10 @@
         @if(isset($transaction->items))
             @foreach($transaction->items as $item)
                 <tr>
-                    <td>{{ $item->goods->code }}</td>
-                    <td>{{ $item->goods->name }}</td>
-                    <td>{{ $item->quantity ?? '-' }}</td>
-                    <td>{{ $item->goods->unit->name ?? '-' }}</td>
+                    <td>{{ $item->goods->code ?? 'n/a' }}</td>
+                    <td>{{ $item->goods->name ?? 'n/a' }}</td>
+                    <td>{{ number_format($item->quantity) ?? '-' }}</td>
+                    <td>{{ $item->goods->unit->symbol ?? 'n/a' }}</td>
                 </tr>
             @endforeach
         @else

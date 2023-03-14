@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('wms_goods_transaction', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type')->nullable();
             $table->integer('transaction_at')->nullable();
             $table->foreignUuid('category_id')->nullable();
             $table->foreignUuid('supplier_id')->nullable();
             $table->foreignUuid('shipper_id')->nullable();
-            $table->string('description', 200)->nullable();
+            $table->string('description')->nullable();
             $table->foreignUuid('created_by')->nullable();
             $table->foreignUuid('updated_by')->nullable();
             $table->timestamps();

@@ -18,8 +18,9 @@ class DispatchingTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setSearchDebounce(500);
         $this->setDefaultSort('transaction_at', 'desc');
-        if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
+        if (Auth::user()->hasPermissionTo('goods-transaction.create')) {
             $this->setConfigurableAreas([
                 'toolbar-left-start' => [
                     'livewire.livewire-datatable.add-action-button',
@@ -41,20 +42,23 @@ class DispatchingTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Receive At', 'transaction_at')
+            Column::make(__('Receive At'), 'transaction_at')
                 ->sortable()
                 ->format(
-                    fn($value, $row, Column $column) => date('l d F Y', $value)
+                    fn($value, $row, Column $column) => format_date($value)
                 ),
-            Column::make('Shipper', 'shipper.name')
-                ->sortable(),
-            Column::make('Items')
+            Column::make(__('Shipper'), 'shipper.name')
+                ->sortable()
+                ->searchable(),
+            Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make('Created By', 'created_by')
-                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
-            Column::make('Created At', 'created_at')
+            Column::make(__('Created By'), 'creator.name')
+                ->format(fn($value, $row) => $value ?? 'n/a')
+                ->searchable(),
+            Column::make(__('Created At'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
             Column::make(__('Actions'), 'id')
                 ->view('livewire.dispatching.components.dispatching-action-menu')

@@ -1,15 +1,7 @@
 <div class="flex items-center gap-3">
-    <a
-        href="#"
-        wire:click.prevent="actionView('{{ $row->id }}')"
-        class="text-slate-800 hover:text-slate-700"
-    >
-        {{ __('Detail') }}
-    </a>
     @can('supplier.update')
         <a
-            href="#"
-            wire:click.prevent="actionEdit('{{ $row->id }}')"
+            href="{{ route('supplier.edit', $row->id) }}"
             class="text-slate-800 hover:text-slate-700"
         >
             {{ __('Edit') }}

@@ -35,7 +35,9 @@
             class="flex items-center gap-2"
         >
             <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-600">
-                <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+                <span class="font-medium text-gray-600 dark:text-gray-300">
+                    {{ make_initial(Auth::user()->name) }}
+                </span>
             </div>
             <!-- Heroicon: chevron-down -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">

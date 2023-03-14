@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Goods\Components;
 
 use App\Models\Goods;
+use App\Services\ExportService;
 use App\Services\PrintService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,8 @@ class GoodsTable extends DataTableComponent
         ];
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setPerPageAccepted([10, 25, 50, 100, -1]);
+        $this->setSearchDebounce(500);
 
         if (Auth::user()->hasPermissionTo('goods.create')) {
             $configurationAreas['toolbar-left-start'] = [
@@ -45,18 +48,15 @@ class GoodsTable extends DataTableComponent
             );
     }
 
-    public function showBulkActionsDropdown(): bool
-    {
-        return false;
-    }
-
     public function columns(): array
     {
         return [
             Column::make(__('Code'), 'code')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make(__('Name'), 'name')
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make(__('Stock'), 'stock')
                 ->format(fn($value, $row, $column) => number_format($value))
                 ->sortable(),
@@ -84,12 +84,6 @@ class GoodsTable extends DataTableComponent
         Goods::where('id', $id)->delete();
     }
 
-    public function bulkActions(): array {
-        return [
-            'exportPDF' => __('Export PDF'),
-        ];
-    }
-
     public function exportPDF() {
         $goods = $this->getRows()->getCollection();
         $pdfContent = PrintService::printGoodsList($goods)->output();
@@ -97,6 +91,16 @@ class GoodsTable extends DataTableComponent
 
         return response()->streamDownload(
             fn () => print($pdfContent),
+            $filename
+        );
+    }
+
+    public function exportCSV() {
+        $goods = $this->getRows()->getCollection();
+        $filename = __('goods-list') . '-' . date("Ymd") . '.csv';
+
+        return response()->streamDownload(
+            ExportService::exportGoodsListCSV($goods),
             $filename
         );
     }

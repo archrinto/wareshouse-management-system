@@ -38,10 +38,27 @@
                                 {{ __('Receive At') }}
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <x-date-picker wire:model.defer="receiveAt" dateFormat="YYYY-MM-DD"  />
+                                <x-datepicker wire:model.defer="receiveAt" dateFormat="YYYY-MM-DD"  />
                             </div>
                             @error("receiveAt")
                                 <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="about" class="block text-sm font-medium text-gray-700">
+                                {{ __('Description')  }}
+                            </label>
+                            <div class="mt-1">
+                                <textarea
+                                    wire:model.defer="description"
+                                    name="description"
+                                    rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="{{ __('Description')  }}"
+                                ></textarea>
+                            </div>
+                            @error('description')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -50,14 +67,6 @@
                         {{ __('Receiving Items') }}
                     </div>
                     <div class="">
-                        <div class="grid grid-cols-2 mb-3 gap-4">
-                            <div class="text-sm font-medium text-gray-700">
-                                <span>{{ __('Goods') }}</span>
-                            </div>
-                            <div class="text-sm font-medium text-gray-700">
-                                <span>{{ __('Quantity') }}</span>
-                            </div>
-                        </div>
                         @include('livewire.components.goods-selection')
                     </div>
                 </div>

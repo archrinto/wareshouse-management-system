@@ -18,8 +18,9 @@ class StockOpnameTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setColumnSelectStatus(false);
+        $this->setSearchDebounce(500);
         $this->setDefaultSort('transaction_at', 'desc');
-        if (Auth::user()->hasPermissionTo('goods_transaction.create')) {
+        if (Auth::user()->hasPermissionTo('goods-transaction.create')) {
             $this->setConfigurableAreas([
                 'toolbar-left-start' => [
                     'livewire.livewire-datatable.add-action-button',
@@ -41,20 +42,24 @@ class StockOpnameTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Stock Opname At', 'transaction_at')
+            Column::make(__('Stock Opname At'), 'transaction_at')
+                ->searchable()
                 ->sortable()
                 ->format(
-                    fn($value, $row, Column $column) => date('l d F Y', $value)
+                    fn($value, $row, Column $column) => format_date($value)
                 ),
-            Column::make('Category', 'category.name')
+            Column::make(__('Category'), 'category.name')
+                ->searchable()
                 ->sortable(),
-            Column::make('Items')
+            Column::make(__('Items'))
                 ->label(function ($row) {
                     return $row->items_count;
                 }),
-            Column::make('Created By', 'created_by')
-                ->format(fn($value, $row) => $row->creator->name ?? 'n/a'),
-            Column::make('Created At', 'created_at')
+            Column::make(__('Created By'), 'creator.name')
+                ->searchable()
+                ->format(fn($value, $row) => $value ?? 'n/a'),
+            Column::make(__('Created At'), 'created_at')
+                ->format(fn($value) => format_date($value))
                 ->sortable(),
             Column::make(__('Actions'), 'id')
                 ->view('livewire.stock-opname.components.stock-opname-action-menu')
