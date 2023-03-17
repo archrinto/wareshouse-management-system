@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\Pages;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
@@ -25,7 +26,11 @@ class UserAddPage extends Component
     ];
 
     public function mount() {
-        $this->roleOptions = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->toArray();
+        if (!Auth::user()->hasRole('Super Admin')) {
+            $this->roleOptions = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->toArray();
+        } else {
+            $this->roleOptions = Role::pluck('name', 'name')->toArray();
+        }
     }
 
     public function submit() {

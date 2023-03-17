@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\Components;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -26,6 +27,17 @@ class UserTable extends DataTableComponent
                 ],
             ]);
         }
+    }
+
+    public function builder(): Builder
+    {
+        $builder = User::with('roles');
+        if (!Auth::user()->hasRole('Super Admin')) {
+            $builder->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'Super Admin');
+            });
+        }
+        return $builder;
     }
 
     public function columns(): array
