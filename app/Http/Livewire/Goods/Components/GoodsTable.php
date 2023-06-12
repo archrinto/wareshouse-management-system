@@ -16,6 +16,11 @@ use Termwind\Components\Raw;
 class GoodsTable extends DataTableComponent
 {
     protected $model = Goods::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
+
+    public $selectedId = null;
 
     public function configure(): void
     {
@@ -80,10 +85,6 @@ class GoodsTable extends DataTableComponent
         ];
     }
 
-    public function actionDelete($id) {
-        Goods::where('id', $id)->delete();
-    }
-
     public function exportPDF() {
         $goods = $this->getRows()->getCollection();
         $pdfContent = PrintService::printGoodsList($goods)->output();
@@ -103,5 +104,15 @@ class GoodsTable extends DataTableComponent
             ExportService::exportGoodsListCSV($goods),
             $filename
         );
+    }
+
+    public function actionDelete($id) {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'goods.components.goods-table', $id);
+    }
+
+    public function deleteConfirmed($itemId) {
+        if ($itemId) {
+            Goods::where('id', $itemId)->delete();
+        }
     }
 }

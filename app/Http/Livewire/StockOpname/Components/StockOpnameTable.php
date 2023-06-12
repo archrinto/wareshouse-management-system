@@ -14,6 +14,10 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
 class StockOpnameTable extends DataTableComponent
 {
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
@@ -66,18 +70,22 @@ class StockOpnameTable extends DataTableComponent
         ];
     }
 
-    public function actionDelete($id) {
-        GoodsTransaction::where('id', $id)->delete();
-        GoodsTransactionGoods::where('transaction_id', $id)->delete();
-
-        $this->emit('refreshDatatable');
-    }
-
     public function actionEdit($id) {
         // redirect()->to('receiving.good')
     }
 
     public function actionView($id) {
         return redirect()->to(route('stock-opname.detail', $id));
+    }
+
+    public function actionDelete($id) {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'stock-opname.components.stock-opname-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            GoodsTransaction::where('id', $id)->delete();
+            GoodsTransactionGoods::where('transaction_id', $id)->delete();
+        }
     }
 }

@@ -13,6 +13,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 class GoodsCategoryTable extends DataTableComponent
 {
     // protected $model = GoodsCategory::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function builder(): Builder
     {
@@ -45,7 +48,15 @@ class GoodsCategoryTable extends DataTableComponent
         ];
     }
 
-    public function actionDelete($id) {
-        GoodsCategory::where('id', $id)->delete();
+    public function actionDelete($id)
+    {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'goods-category.components.goods-category-table', $id);
+    }
+
+    public function deleteConfirmed($id)
+    {
+        if ($id) {
+            GoodsCategory::where('id', $id)->delete();
+        }
     }
 }

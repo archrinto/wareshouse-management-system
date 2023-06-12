@@ -43,11 +43,12 @@
             </div>
             <div class="p-6">
                 {{ $slot }}
-            <div>
+            </div>
         </div>
     </div>
 
     <livewire:components.toast-message />
+    <livewire:components.delete-confirm-modal />
 
     @stack('scripts')
 
@@ -99,6 +100,5 @@
             }
         }
     </script>
-
 </body>
 </html>

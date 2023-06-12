@@ -11,6 +11,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 class UserTable extends DataTableComponent
 {
     protected $model = User::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function configure(): void
     {
@@ -58,5 +61,17 @@ class UserTable extends DataTableComponent
             Column::make(__('Actions'), 'id')
                 ->view('livewire.user.components.user-action-menu'),
         ];
+    }
+
+    public function actionDelete($id)
+    {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'user.components.user-table', $id);
+    }
+
+    public function deleteConfirmed($id)
+    {
+        if ($id) {
+            User::where('id', $id)->delete();
+        }
     }
 }

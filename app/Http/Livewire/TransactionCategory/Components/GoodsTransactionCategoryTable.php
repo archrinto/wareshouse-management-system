@@ -11,6 +11,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 class GoodsTransactionCategoryTable extends DataTableComponent
 {
     // protected $model = GoodsCategory::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function builder(): Builder
     {
@@ -48,6 +51,12 @@ class GoodsTransactionCategoryTable extends DataTableComponent
     }
 
     public function actionDelete($id) {
-        GoodsTransactionCategory::where('id', $id)->delete();
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'transaction-category.components.goods-transaction-category-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            GoodsTransactionCategory::where('id', $id)->delete();
+        }
     }
 }

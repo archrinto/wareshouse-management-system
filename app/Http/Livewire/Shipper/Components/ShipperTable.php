@@ -14,6 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 class ShipperTable extends DataTableComponent
 {
     protected $model = Shipper::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function configure(): void
     {
@@ -48,6 +51,12 @@ class ShipperTable extends DataTableComponent
     }
 
     public function actionDelete($id) {
-        Shipper::where('id', $id)->delete();
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'shipper.components.shipper-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            Shipper::where('id', $id)->delete();
+        }
     }
 }

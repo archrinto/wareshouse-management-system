@@ -13,6 +13,9 @@ class ReceivingTable extends DataTableComponent
 {
     protected $model = GoodsTransaction::class;
     protected $actions = ['view', 'update', 'delete'];
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function configure(): void
     {
@@ -65,16 +68,22 @@ class ReceivingTable extends DataTableComponent
         ];
     }
 
-    public function actionDelete($id) {
-        GoodsTransaction::where('id', $id)->delete();
-        GoodsTransactionGoods::where('transaction_id', $id)->delete();
-    }
-
     public function actionEdit($id) {
         // redirect()->to('receiving.good')
     }
 
     public function actionView($id) {
         return redirect()->to(route('receiving.detail', $id));
+    }
+
+    public function actionDelete($id) {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'receiving.components.receiving-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            GoodsTransaction::where('id', $id)->delete();
+            GoodsTransactionGoods::where('transaction_id', $id)->delete();
+        }
     }
 }

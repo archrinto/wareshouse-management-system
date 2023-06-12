@@ -14,6 +14,10 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
 class DispatchingTable extends DataTableComponent
 {
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
+    
     public function configure(): void
     {
         $this->setPrimaryKey('id');
@@ -65,16 +69,22 @@ class DispatchingTable extends DataTableComponent
         ];
     }
 
-    public function actionDelete($id) {
-        GoodsTransaction::where('id', $id)->delete();
-        GoodsTransactionGoods::where('transaction_id', $id)->delete();
-    }
-
     public function actionEdit($id) {
         // redirect()->to('receiving.good')
     }
 
     public function actionView($id) {
         return redirect()->to(route('dispatching.detail', $id));
+    }
+
+    public function actionDelete($id) {
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'dispatching.components.dispatching-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            GoodsTransaction::where('id', $id)->delete();
+            GoodsTransactionGoods::where('transaction_id', $id)->delete();
+        }
     }
 }

@@ -14,6 +14,9 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 class SupplierTable extends DataTableComponent
 {
     protected $model = Supplier::class;
+    protected $listeners = [
+        'deleteConfirmed'
+    ];
 
     public function configure(): void
     {
@@ -49,6 +52,12 @@ class SupplierTable extends DataTableComponent
     }
 
     public function actionDelete($id) {
-        Supplier::where('id', $id)->delete();
+        $this->emitTo('components.delete-confirm-modal', 'deleteConfirmation', 'supplier.components.supplier-table', $id);
+    }
+
+    public function deleteConfirmed($id) {
+        if ($id) {
+            Supplier::where('id', $id)->delete();
+        }
     }
 }
