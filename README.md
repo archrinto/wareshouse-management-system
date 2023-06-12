@@ -1,6 +1,9 @@
 # Warehouse Management System
 This is a web-based application for managing inventory and stock management in a small-scale warehouse environment. The application is built using PHP with Laravel framework, MySQL database, Tailwind CSS, and Laravel Livewire.
 
+## Preview
+![image info](./public/images/goods-page.png)
+
 ## Features
 The Warehouse Management System provides the following features:
 
@@ -21,6 +24,8 @@ To install the application, follow the steps below:
 - Create a new database and configure the `.env` file with the database credentials.
 - Run database migrations: `php artisan migrate`
 - Seed the database: `php artisan db:seed`
+- Add super admin user: `php artisan db:seed --class=SuperAdminUserSeeder`
+You can see the default username and password inside the seeder file
 - Serve the application: `php artisan serve`
 
 ## Contributors
