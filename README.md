@@ -24,6 +24,8 @@ To install the application, follow the steps below:
 - Create a new database and configure the `.env` file with the database credentials.
 - Run database migrations: `php artisan migrate`
 - Seed the database: `php artisan db:seed`
+- Seed the Roles: `php artisan db:seed --class=RoleSeeder`
+- Seed the Permission: `php artisan db:seed --class=PermissionSeeder`
 - Add super admin user: `php artisan db:seed --class=SuperAdminUserSeeder`
 You can see the default username and password inside the seeder file
 - Serve the application: `php artisan serve`
