@@ -38,7 +38,7 @@ class DispatchingTable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return GoodsTransaction::with(['creator'])
+        return GoodsTransaction::with(['creator', 'shipper'])
             ->dispatching()
             ->withCount('items');
     }
