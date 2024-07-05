@@ -36,7 +36,7 @@ class ReceivingTable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return GoodsTransaction::with(['items', 'creator'])
+        return GoodsTransaction::with(['creator'])
             ->receiving()
             ->withCount('items');
     }
